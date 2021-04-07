@@ -1,0 +1,3 @@
+[submodule "SharedCore"]
+	path = SharedCore
+	url = https://github.com/mendocs/SharedCore.git
