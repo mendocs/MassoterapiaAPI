@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\sharedcore\SharedCore.csproj" />
+    <ProjectReference Include="..\SharedCore\SharedCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
