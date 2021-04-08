@@ -16,24 +16,23 @@ jobs:
     # checkout the repo
     - name: 'Checkout Github Action'
       #uses: actions/checkout@master
-      uses: actions/checkout@v2
+      uses: actions/checkout@master
       with:
+        ref: develop
         token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
-        submodules: 'true'
+        submodules: true
     - name: Checkout submodules 1
       uses: textbook/git-checkout-submodule-action@master
       with:
         token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
-        remote: 'true'
+        remote: true
         
 
       
-    - name: Checkout submodules 2
-      run: git submodule update --init --recursive
+    #- name: Checkout submodules 2
+    #  run: git submodule update --init --recursive
       
-    - name: Checkout submodules 3     
-      run: git submodule update --remote --recursive
-      
+ 
       
 
 
