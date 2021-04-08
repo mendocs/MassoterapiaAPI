@@ -13,17 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-    - name: 'Checkout Github Action'
-      uses: actions/checkout@master
-        
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
-      with:
-        remote: true
-        token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
+      run: git submodule update --init --recursive
 
 
     - name: Set up .NET Core
