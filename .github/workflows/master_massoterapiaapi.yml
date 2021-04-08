@@ -18,6 +18,11 @@ jobs:
       uses: actions/checkout@master
       with:
         submodules: true
+    - name: Checkout submodules
+      uses: textbook/git-checkout-submodule-action@master
+      with:
+        remote: true
+        
 
       
     - name: Checkout submodules
