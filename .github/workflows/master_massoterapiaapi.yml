@@ -16,9 +16,14 @@ jobs:
 
     - name: 'Checkout Github Action'
       uses: actions/checkout@master
+        
+    - name: Checkout submodule repo
+      uses: actions/checkout@v2
       with:
-        submodules: 'recursive'
-        token: ${{ secrets.DISPATCH_HOOK_TOKEN }}      
+        repository: mendocs/SharedCore
+        path: "path/to/SharedCore"
+        token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
+        fetch-depth : 0
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
