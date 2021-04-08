@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -25,6 +27,19 @@
     <ProjectReference Include="..\Massoterapia.application\Massoterapia.application.csproj" />
     <ProjectReference Include="..\massoterapia.infra.data.mongo\massoterapia.infra.data.mongo.csproj" />
     <ProjectReference Include="..\massoterapia.domain\massoterapia.domain.csproj" />
+    <ProjectReference Include="..\massoterapia.infra.ioc\massoterapia.infra.ioc.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+   <Resource Include="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+  <None Update="secrets\appsettings.Development.json" CopyToOutputDirectory= "PreserveNewest" />
+</ItemGroup>
+
+<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+  <Copy SourceFiles="secrets\appsettings.Development.json" DestinationFolder="$(OutDir)" />
+</Target>
 
 </Project>

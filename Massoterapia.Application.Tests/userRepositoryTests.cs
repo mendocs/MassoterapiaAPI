@@ -11,13 +11,16 @@ using MongoDB.Bson.Serialization;
 using Massoterapia.Domain.Entities;
 using System;
 using Massoterapia.Application.user.Services;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Massoterapia.Infra.IoC.Settings;
 
 namespace Massoterapia.Application.Tests
 {
     public class userRepositoryTests
     {
 
-        string conn = "mongodb://cosmosteste:mJ5j9YYSji5Rg5wdYPtoFhK8VgnQmgOpjggZkQadX5BjiwsE45TdG33FKF4ghX2lEUyyx9cZKmVjXdqhp64Uvg==@cosmosteste.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@cosmosteste@&retrywrites=false";
+       
         IUserRepository userRepository;
 
         UserInputModel userInputModel;
@@ -25,13 +28,19 @@ namespace Massoterapia.Application.Tests
         public userRepositoryTests()
         {
 
+            var config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.Development.json")
+            .Build();
+
+            var mongoDbSettings = config.GetSection("MongoDBSetting").Get<MongoDBSetting>();            
 
             Massoterapia.Infra.Data.Mongo.Configurations.GlobalConfigurations.ConventionPack_IgnoreExtraElements();
 
             Massoterapia.Infra.Data.Mongo.Configurations.UserConfiguration.UserMapping();
 
-            var connectionFactory = new ConnectionFactory(conn);     
-            userRepository = new  UserRepository(connectionFactory, "ProductDb", "MassoterapiaUser");
+            var connectionFactory = new ConnectionFactory(mongoDbSettings.ConnectionString);     
+            userRepository = new  UserRepository(connectionFactory, mongoDbSettings.DatabaseName, mongoDbSettings.CollectionName);
 
             userInputModel = new UserInputModel{
                 Name="nome usuario",
