@@ -21,11 +21,6 @@ jobs:
         ref: develop
         token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
         submodules: true
-    - name: Checkout submodules 1
-      uses: textbook/git-checkout-submodule-action@master
-      with:
-        token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
-        remote: true
         
 
       
