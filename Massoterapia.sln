@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Domain.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Application.Tests", "Massoterapia.Application.Tests\Massoterapia.Application.Tests.csproj", "{567A53E9-D2EF-47D5-A673-2A572DABA6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "massoterapia.integration.tests", "Massoterapia.Integration.Tests\Massoterapia.Integration.Tests.csproj", "{194D1608-CAEC-440F-A5A2-3976E0947BBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Integration.Tests", "Massoterapia.Integration.Tests\Massoterapia.Integration.Tests.csproj", "{194D1608-CAEC-440F-A5A2-3976E0947BBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
