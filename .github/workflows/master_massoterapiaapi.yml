@@ -28,7 +28,7 @@ jobs:
 
       
     - name: Checkout submodules
-      run: git submodule update --remote --recursive
+      run: git submodule update --init --recursive
       
 
 
