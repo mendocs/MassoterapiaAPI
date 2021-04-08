@@ -30,14 +30,6 @@
     <ProjectReference Include="..\massoterapia.infra.ioc\massoterapia.infra.ioc.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-   <Resource Include="appsettings.Development.json" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-  <None Update="secrets\appsettings.Development.json" CopyToOutputDirectory= "PreserveNewest" />
-</ItemGroup>
-
 <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
   <Copy SourceFiles="secrets\appsettings.Development.json" DestinationFolder="$(OutDir)" />
 </Target>

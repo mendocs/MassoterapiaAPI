@@ -30,7 +30,7 @@ namespace Massoterapia.Application.Tests
 
             var config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.Development.json")
+            .AddJsonFile(@"J:\Desenvolvimento\Projetos\Massoterapia\MassoterapiaAPI\Massoterapia.API\appsettings.Development.json")
             .Build();
 
             var mongoDbSettings = config.GetSection("MongoDBSetting").Get<MongoDBSetting>();            
