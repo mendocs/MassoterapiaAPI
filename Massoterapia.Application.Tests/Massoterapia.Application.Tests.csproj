@@ -24,14 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Massoterapia.application\Massoterapia.application.csproj" />
-    <ProjectReference Include="..\massoterapia.infra.data.mongo\massoterapia.infra.data.mongo.csproj" />
-    <ProjectReference Include="..\massoterapia.domain\massoterapia.domain.csproj" />
-    <ProjectReference Include="..\massoterapia.infra.ioc\massoterapia.infra.ioc.csproj" />
+    <ProjectReference Include="..\Massoterapia.Application\Massoterapia.Application.csproj" />
+    <ProjectReference Include="..\Massoterapia.Infra.Data.Mongo\Massoterapia.Infra.Data.Mongo.csproj" />
+    <ProjectReference Include="..\Massoterapia.Domain\Massoterapia.Domain.csproj" />
+    <ProjectReference Include="..\Massoterapia.Infra.IoC\Massoterapia.Infra.IoC.csproj" />
   </ItemGroup>
-
-<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-  <Copy SourceFiles="secrets\appsettings.Development.json" DestinationFolder="$(OutDir)" />
-</Target>
 
 </Project>

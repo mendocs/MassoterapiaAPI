@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Massoterapia.Domain\Massoterapia.Domain.csproj" />
-    <ProjectReference Include="..\sharedcore\sharedcore.csproj" />
+    <ProjectReference Include="..\SharedCore\SharedCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

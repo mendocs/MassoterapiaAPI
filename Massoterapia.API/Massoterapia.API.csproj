@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Massoterapia.Infra.IoC\Massoterapia.Infra.IoC.csproj" />
-    <ProjectReference Include="..\massoterapia.application\massoterapia.application.csproj" />
+    <ProjectReference Include="..\Massoterapia.Application\Massoterapia.Application.csproj" />
   </ItemGroup>
 
 </Project>
