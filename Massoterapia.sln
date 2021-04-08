@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Domain", "Mass
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Application", "Massoterapia.Application\Massoterapia.Application.csproj", "{28E5F3F9-97D0-4967-96AB-9F4C3C994153}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Infra.Data.Mongo", "Massoterapia.Infra.Data.Mongo\Massoterapia.Infra.Data.Mongo.csproj", "{E23F95AF-1412-4858-9A91-011457040947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Infra.IoC", "Massoterapia.Infra.IoC\Massoterapia.Infra.IoC.csproj", "{3223223D-2A20-44E6-A801-03E4FAB257DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.API", "Massoterapia.API\Massoterapia.API.csproj", "{4D410B61-3041-45DB-911C-FC98EEE6B6A1}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,41 @@ Global
 		{28E5F3F9-97D0-4967-96AB-9F4C3C994153}.Release|x64.Build.0 = Release|Any CPU
 		{28E5F3F9-97D0-4967-96AB-9F4C3C994153}.Release|x86.ActiveCfg = Release|Any CPU
 		{28E5F3F9-97D0-4967-96AB-9F4C3C994153}.Release|x86.Build.0 = Release|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Debug|x64.Build.0 = Debug|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Debug|x86.Build.0 = Debug|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Release|x64.ActiveCfg = Release|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Release|x64.Build.0 = Release|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Release|x86.ActiveCfg = Release|Any CPU
+		{E23F95AF-1412-4858-9A91-011457040947}.Release|x86.Build.0 = Release|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Release|x64.Build.0 = Release|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{3223223D-2A20-44E6-A801-03E4FAB257DF}.Release|x86.Build.0 = Release|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Debug|x64.Build.0 = Debug|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Debug|x86.Build.0 = Debug|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x64.ActiveCfg = Release|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x64.Build.0 = Release|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
