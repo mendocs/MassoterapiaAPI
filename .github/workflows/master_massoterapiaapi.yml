@@ -13,21 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: 'Checkout Github Action1'    
-    - uses: actions/checkout@master
-      with:
-        submodules: 'recursive'
-        token: ${{ secrets.DISPATCH_HOOK_TOKEN }}
-        
 
-      
-    #- name: Checkout submodules 2
-    #  run: git submodule update --init --recursive
-      
- 
-      
-
+    - name: 'Checkout Github Action'
+      uses: actions/checkout@master
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
