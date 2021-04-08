@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Infra.Data.Mon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Infra.IoC", "Massoterapia.Infra.IoC\Massoterapia.Infra.IoC.csproj", "{FC8A5D1D-B018-4096-A0DA-F3830ED432C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCore", "sharedcore\SharedCore.csproj", "{7AA0553C-C0F6-435F-9071-F87571FB3341}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCore", "Sharedcore\SharedCore.csproj", "{7AA0553C-C0F6-435F-9071-F87571FB3341}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Domain", "Massoterapia.Domain\Massoterapia.Domain.csproj", "{DC61F850-C8E9-4500-8208-3C49B37E4778}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Domain.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Application.Tests", "Massoterapia.Application.Tests\Massoterapia.Application.Tests.csproj", "{567A53E9-D2EF-47D5-A673-2A572DABA6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "massoterapia.integration.tests", "massoterapia.integration.tests\massoterapia.integration.tests.csproj", "{194D1608-CAEC-440F-A5A2-3976E0947BBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "massoterapia.integration.tests", "Massoterapia.Integration.Tests\Massoterapia.Integration.Tests.csproj", "{194D1608-CAEC-440F-A5A2-3976E0947BBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
