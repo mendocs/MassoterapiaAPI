@@ -33,14 +33,14 @@ namespace Massoterapia.API
             services.AddControllers();
             LoadMiddlewares(services,Configuration);
 
-            /*
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
                 });
-            });   */         
+            });      
 
             
         }
@@ -51,8 +51,8 @@ namespace Massoterapia.API
             
             
             services.AddLoggerMiddleware();
-            //services.AddAutoMapperMiddleware();
-            //services.AddDependencyInjection(configuration);
+            services.AddAutoMapperMiddleware();
+            services.AddDependencyInjection(configuration);
             
         }        
 
@@ -66,7 +66,7 @@ namespace Massoterapia.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Massoterapia.API v1"));
             }
 
-            //app.UseCors("EnableCORS");
+            app.UseCors("EnableCORS");
 
             app.UseHttpsRedirection();
 
