@@ -33,23 +33,27 @@ namespace Massoterapia.API
             services.AddControllers();
             LoadMiddlewares(services,Configuration);
 
+            /*
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
                 });
-            });            
+            });   */         
 
             
         }
 
         private static void LoadMiddlewares(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddLoggerMiddleware();
             services.AddSwaggerService();
-            services.AddAutoMapperMiddleware();
-            services.AddDependencyInjection(configuration);
+            
+            
+            //services.AddLoggerMiddleware();
+            //services.AddAutoMapperMiddleware();
+            //services.AddDependencyInjection(configuration);
+            
         }        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +66,7 @@ namespace Massoterapia.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Massoterapia.API v1"));
             }
 
-            app.UseCors("EnableCORS");
+            //app.UseCors("EnableCORS");
 
             app.UseHttpsRedirection();
 
