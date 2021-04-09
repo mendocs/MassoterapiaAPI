@@ -50,7 +50,7 @@ namespace Massoterapia.API
             services.AddSwaggerService();
             
             
-            //services.AddLoggerMiddleware();
+            services.AddLoggerMiddleware();
             //services.AddAutoMapperMiddleware();
             //services.AddDependencyInjection(configuration);
             
