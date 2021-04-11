@@ -29,9 +29,7 @@ namespace Massoterapia.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var tt = 0;
 
-            var rr = 5/tt;
 
             services.AddControllers();
             LoadMiddlewares(services,Configuration);
@@ -53,9 +51,9 @@ namespace Massoterapia.API
             services.AddSwaggerService();
             
             
-            services.AddLoggerMiddleware();
-            services.AddAutoMapperMiddleware();
-            services.AddDependencyInjection(configuration);
+            //services.AddLoggerMiddleware();
+            //services.AddAutoMapperMiddleware();
+            //services.AddDependencyInjection(configuration);
             
         }        
 
