@@ -11,4 +11,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="6.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Massoterapia.Application\Massoterapia.Application.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.API", "Massoterapia.API\Massoterapia.API.csproj", "{4D410B61-3041-45DB-911C-FC98EEE6B6A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Application", "Massoterapia.Application\Massoterapia.Application.csproj", "{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCore", "SharedCore\SharedCore.csproj", "{A3FC417D-8194-4D5E-9242-374993455D28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Massoterapia.Domain", "Massoterapia.Domain\Massoterapia.Domain.csproj", "{800091CB-3228-48CA-95C6-F465AE982172}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,5 +36,41 @@ Global
 		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x64.Build.0 = Release|Any CPU
 		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{4D410B61-3041-45DB-911C-FC98EEE6B6A1}.Release|x86.Build.0 = Release|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Debug|x64.Build.0 = Debug|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Debug|x86.Build.0 = Debug|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Release|x64.ActiveCfg = Release|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Release|x64.Build.0 = Release|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Release|x86.ActiveCfg = Release|Any CPU
+		{27D59A1B-2010-4008-9CF1-E98F5DF45A3E}.Release|x86.Build.0 = Release|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Debug|x64.Build.0 = Debug|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Debug|x86.Build.0 = Debug|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Release|x64.ActiveCfg = Release|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Release|x64.Build.0 = Release|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Release|x86.ActiveCfg = Release|Any CPU
+		{A3FC417D-8194-4D5E-9242-374993455D28}.Release|x86.Build.0 = Release|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Debug|x64.Build.0 = Debug|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Debug|x86.Build.0 = Debug|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Release|x64.ActiveCfg = Release|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Release|x64.Build.0 = Release|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Release|x86.ActiveCfg = Release|Any CPU
+		{800091CB-3228-48CA-95C6-F465AE982172}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
