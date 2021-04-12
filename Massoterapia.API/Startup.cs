@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Massoterapia.Infra.IoC.Middlewares;
+//using Massoterapia.Infra.IoC.Middlewares;
 
 
 namespace Massoterapia.API
@@ -48,7 +48,7 @@ namespace Massoterapia.API
 
         private static void LoadMiddlewares(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSwaggerService();
+            //services.AddSwaggerService();
             
             
             //services.AddLoggerMiddleware();
@@ -60,7 +60,7 @@ namespace Massoterapia.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment() )
+            if (env.IsDevelopment() && false)
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
