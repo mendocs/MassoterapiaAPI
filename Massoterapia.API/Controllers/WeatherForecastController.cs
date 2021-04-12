@@ -29,7 +29,7 @@ namespace Massoterapia.API.Controllers
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                Date = new DateTime(2002,1,1),
+                Date = new DateTime(2003,1,1),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })

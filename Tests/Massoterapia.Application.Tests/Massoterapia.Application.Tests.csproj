@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.5" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Massoterapia.API\Massoterapia.API.csproj" />
+    <ProjectReference Include="..\..\Massoterapia.Application\Massoterapia.Application.csproj" />
+    <ProjectReference Include="..\..\Massoterapia.Infra.Data.Mongo\Massoterapia.Infra.Data.Mongo.csproj" />
+    <ProjectReference Include="..\..\Massoterapia.Domain\Massoterapia.Domain.csproj" />
+    <ProjectReference Include="..\..\Massoterapia.Infra.IoC\Massoterapia.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>

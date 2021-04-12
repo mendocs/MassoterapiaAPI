@@ -3,6 +3,7 @@ obj
 Properties
 .vscode
 appsettings.Development.json
+[log-]
 
 
 ## Ignore Visual Studio temporary files, build results, and
