@@ -15,7 +15,7 @@ namespace Massoterapia.Infra.IoC.Middlewares
                 options.AddPolicy("EnableCORS", builder =>
                 {
                     //builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
-                    builder.WithOrigins(corsSettings.Origins);
+                    builder.WithOrigins(corsSettings.Origins).AllowAnyHeader().AllowAnyMethod().Build();
                 });
             });   
             
