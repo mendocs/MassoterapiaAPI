@@ -30,27 +30,15 @@ namespace Massoterapia.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddControllers();
             LoadMiddlewares(services,Configuration);
-
-            
-            services.AddCors(options =>
-            {
-                options.AddPolicy("EnableCORS", builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
-                });
-            });      
-
-            
+               
         }
 
         private static void LoadMiddlewares(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSwaggerService();
-            
-            
+            services.AddCorsPolicyMiddleware(configuration);
             services.AddLoggerMiddleware();
             services.AddAutoMapperMiddleware();
             services.AddDependencyInjection(configuration);
