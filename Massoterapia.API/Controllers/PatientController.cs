@@ -110,7 +110,8 @@ namespace Massoterapia.API.Controllers
             catch (Exception exception)
             {
                 _logger.LogError(exception, exception.Message, patientInputModel);
-                return new StatusCodeResult(500);
+                //return new StatusCodeResult(500);
+                return BadRequest($"{exception.Message}");
             }
         }
 
