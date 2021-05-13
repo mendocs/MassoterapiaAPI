@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Massoterapia.Domain.Entities;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;

@@ -25,15 +25,13 @@ namespace Massoterapia.Integration.Tests
                     NumberSalt = 70,
                     Interation = 10101,
                     Nhash = 70
-                    };        
+                    };    
 
             request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
                 RequestUri = new Uri("https://localhost:5001/api/v1/user"),
- 
-                
-            };     
+            };
         }
 
 

@@ -31,7 +31,7 @@ namespace Massoterapia.API.Controllers
             _logger = logger;
             _configuration = configuration;
 
-        }     
+        }
 
         private CryptographSettings GetCryptographSettings() => _configuration.GetSection("CryptographyPassword").Get<CryptographSettings>();
         

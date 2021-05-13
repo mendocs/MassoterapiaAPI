@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\Massoterapia.Infra.Data.Mongo\Massoterapia.Infra.Data.Mongo.csproj" />
     <ProjectReference Include="..\..\Massoterapia.Domain\Massoterapia.Domain.csproj" />
     <ProjectReference Include="..\..\Massoterapia.Infra.IoC\Massoterapia.Infra.IoC.csproj" />
+    <ProjectReference Include="..\Massoterapia.Domain.Tests\Massoterapia.Domain.Tests.csproj" />
   </ItemGroup>
 
 </Project>

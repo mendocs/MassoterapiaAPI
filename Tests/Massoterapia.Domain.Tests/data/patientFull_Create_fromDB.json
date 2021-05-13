@@ -1,0 +1,60 @@
+{
+    "key": "ca3aa909-c935-4c9f-b304-7d744dbe050e",
+    "Updated": "2021-03-21T11:35:00.000Z",
+    "Created": "2021-03-21T11:35:00.000Z",
+    "phone": "11998887777",
+    "name": "ULISSES MENDONCA JUNIOR",
+    "dateFillData": "",
+    "maritalStatus": "",
+    "sons": 0,
+    "dateBorn": "",
+    "weight": "",
+    "phoneContact": "",
+    "occupation": "",
+    "motivation": [],
+    "mainComplaint": "",
+    "historyComplaint": "",
+    "secundaryComplaint": "",
+    "ingestionLiquid": "",
+    "liquidTypes": "",
+    "smoking": "",
+    "alcohol": "",
+    "psychoactive": "",
+    "addiction": "",
+    "physicalActivity": "",
+    "physicalActivityFrequency": "",
+    "qualitySleep": "",
+    "food": "",
+    "feces": "",
+    "lastFeces": "",
+    "leisureActivities": "",
+    "leisureRestWork": "",
+    "disease": [
+        
+    ],
+    "healthChanges": [
+        
+    ],
+    "treatments": [
+        
+    ],
+    "othersTreatments": "",
+    "medicines": "",
+    "diu": false,
+    "dum": "",
+    "subcutaneous": false,
+    "subcutaneousOther": "",
+    "surgeries": "",
+    "familyIllnessess": "",
+    "schedules": [
+        {
+            "key": "ca3aa919-c935-4c9f-b304-7d744dbe050e",
+            "Updated": "2021-03-21T11:35:00.000Z",
+            "Created": "2021-03-21T11:35:00.000Z",
+            "startdDate": "2021-03-21T11:35:00.000Z",
+            "comments": "",
+            "confirmed": true,
+            "executed": false
+        }
+    ]
+}

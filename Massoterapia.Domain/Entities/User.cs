@@ -28,8 +28,7 @@ namespace Massoterapia.Domain.Entities
             this.Interation = interation;
             this.NumberSalt = numberSalt;
             this.Nhash = nhash;            
-            this.Salt =  SecurityHelper.GenerateSalt(this.NumberSalt);
-            this.Password_Hash = this.getHashPassword();
+            this.SetHashes();
     
         }
 

@@ -2,6 +2,7 @@ using System.Reflection;
 using System;
 using Xunit;
 using Massoterapia.Domain.Entities;
+using Massoterapia.Domain.Validation;
 
 namespace Massoterapia.Domain.Tests
 {
@@ -28,6 +29,43 @@ namespace Massoterapia.Domain.Tests
             Assert.NotEqual(passgenerated, "kfrMv4vktPT7tE8kn8X1hOz5qyA91tlpG+YiRXPasNeod46scZV5IPJe6EffAtTCpKoYgPDFYuhwBUxYNyg1UZWiCwY/+g==");
 
         }
+
+        [Fact]
+        public void user_contract_not_valid()
+        {
+            var user = new  User();            
+
+            UserValidationContract userValidationContract = new UserValidationContract(user);
+
+            Assert.False(userValidationContract.IsValid);
+
+        }
+
+
+        [Fact]
+        public void user_contract_no_password_not_valid()
+        {
+            var user = new  User("usuer_name","",10,10,10);            
+
+            UserValidationContract userValidationContract = new UserValidationContract(user);
+
+            Assert.False(userValidationContract.IsValid);
+
+        }
+
+
+
+        [Fact]
+        public void user_contract_valid()
+        {
+            var user = new  User("usuer_name","password",10,10,10);            
+
+            UserValidationContract userValidationContract = new UserValidationContract(user);
+
+            Assert.True(userValidationContract.IsValid);
+
+        }
+
 
         [Fact]
         public void Password_Hash_whit_saved_salt_interaction_diferent()

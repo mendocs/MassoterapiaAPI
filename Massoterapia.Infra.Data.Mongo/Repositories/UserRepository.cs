@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace Massoterapia.Infra.Data.Mongo.Repositories
 {
-    public class UserRepository: Repository<User>, IUserRepository
+    public class UserRepository: RepositoryWrite<User>, IUserRepository
     {
         public UserRepository(IMongoCollection<User> collectionName) : base(collectionName)
         {
@@ -19,22 +19,13 @@ namespace Massoterapia.Infra.Data.Mongo.Repositories
         {
         }
 
-        public void delete(User obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public Task<User> QueryByNamePasswordHash(string name)
         {
             User user = _collectionName.AsQueryable<User>().FirstOrDefault(w => w.Name == name);
             return Task.FromResult(user);
             //return _collectionName.AsQueryable<User>().Where(p => p.ProductChilds.Any(c=> c.confirmed == confirmed )) ; // Select(w => w.ProductChilds. == key);
         }
-
-        public void update(User obj)
-        {
-            throw new System.NotImplementedException();
-        }
+     
     }        
     
 }

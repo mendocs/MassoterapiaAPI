@@ -28,19 +28,8 @@ namespace Massoterapia.Application.Tests
         public userRepositoryTests()
         {
 
-            var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(@"J:\Desenvolvimento\Projetos\Massoterapia\MassoterapiaAPI\Massoterapia.API\appsettings.Development.json")
-            .Build();
-
-            var mongoDbSettings = config.GetSection("MongoDBSetting").Get<MongoDBSetting>();            
-
-            Massoterapia.Infra.Data.Mongo.Configurations.GlobalConfigurations.ConventionPack_IgnoreExtraElements();
-
-            Massoterapia.Infra.Data.Mongo.Configurations.UserConfiguration.UserMapping();
-
-            var connectionFactory = new ConnectionFactory(mongoDbSettings.ConnectionString);     
-            userRepository = new  UserRepository(connectionFactory, mongoDbSettings.DatabaseName, mongoDbSettings.CollectionName);
+ 
+            userRepository = new  UserRepository(RepositoryConfiguration.ConnFactory(), RepositoryConfiguration.DatabaseName, RepositoryConfiguration.CollectionUser);
 
             userInputModel = new UserInputModel{
                 Name="nome usuario",

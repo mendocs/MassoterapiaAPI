@@ -1,7 +1,0 @@
-2021-04-05 23:24:34.006 -03:00 [Information] Application initialized
-2021-04-05 23:25:13.620 -03:00 [Information] Application initialized
-2021-04-05 23:30:52.762 -03:00 [Information] Application initialized
-2021-04-05 23:38:00.672 -03:00 [Information] Application initialized
-2021-04-05 23:42:05.917 -03:00 [Information] Application initialized
-2021-04-05 23:48:05.030 -03:00 [Information] Application initialized
-2021-04-05 23:55:37.971 -03:00 [Information] Application initialized

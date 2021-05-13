@@ -8,6 +8,8 @@ using Massoterapia.Infra.IoC.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Massoterapia.Application.user.models;
+using Massoterapia.Application.Patient.Interfaces;
+using Massoterapia.Application.Patient.Services;
 
 namespace Massoterapia.Infra.IoC.Middlewares
 {
@@ -25,9 +27,15 @@ namespace Massoterapia.Infra.IoC.Middlewares
 
             services.AddSingleton<IUserRepository>(
                 p => new UserRepository(connectionFactory, mongoDbSettings.DatabaseName,
-                    mongoDbSettings.CollectionName));
+                    mongoDbSettings.CollectionNameUser));
+
+            services.AddSingleton<IPatientRepository>(
+                p => new PatientRepository(connectionFactory, mongoDbSettings.DatabaseName,
+                    mongoDbSettings.CollectionNamePatient));                    
 
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IPatientService, PatientService>();
         }
     }
 }

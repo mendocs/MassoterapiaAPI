@@ -94,7 +94,10 @@ namespace Massoterapia.Application.Tests
             //mockRepository.Setup(repo => repo.Insert(UserReturns));            
             var userService = new UserService(configurations.FakeMapper(),configurations.FakeUserRepository().Object);
 
-            Assert.Throws<Exception> (()=> userService.CreateUser(userInputModel));
+            var ex = Assert.Throws<Exception> (()=> userService.CreateUser(userInputModel));
+
+            Assert.Contains("Senha não pode ser vazio", ex.Message );
+
         }         
     }
 }
