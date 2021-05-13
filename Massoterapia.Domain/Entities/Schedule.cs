@@ -31,10 +31,13 @@ namespace Massoterapia.Domain.Entities
             if (!this.isFromDatabase())    
             {
 
+                var hourstime = (this.StartdDate - DateTime.Now);
                 var hours = (this.StartdDate - DateTime.Now).TotalHours;
 
                 if (hours <= 30)
                     this.Confirmed = true;
+                else    
+                    this.Confirmed = false;
             }
         }
 

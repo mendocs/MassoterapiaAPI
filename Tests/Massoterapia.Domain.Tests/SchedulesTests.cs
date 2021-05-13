@@ -35,6 +35,30 @@ namespace Massoterapia.Domain.Tests
 
             Assert.True(scheduleValidationContract.IsValid);
 
-        }                
+        } 
+
+        [Fact]
+        public void schedule_contract_confirmed_30h()
+        {
+            var schedule = new  Schedule(DateTime.Now.AddHours(20));            
+            
+            Assert.True(schedule.Confirmed);
+
+        } 
+
+
+        [Fact]
+        public void schedule_contract_not_confirmed_30h()
+        {
+
+            var ddd = TimeZoneInfo.GetSystemTimeZones();
+            var schedule = new  Schedule(DateTime.Now.AddHours(70));            
+            
+            Assert.False(schedule.Confirmed);
+
+        } 
+
+
+
     }
 }
