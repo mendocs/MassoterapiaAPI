@@ -1,1 +1,4 @@
 2021-05-13 00:52:15.695 -03:00 [Information] Application initialized
+2021-05-13 19:20:21.961 -03:00 [Information] Application initialized
+2021-05-13 20:29:19.578 -03:00 [Information] Application initialized
+2021-05-13 20:44:32.939 -03:00 [Information] Application initialized
