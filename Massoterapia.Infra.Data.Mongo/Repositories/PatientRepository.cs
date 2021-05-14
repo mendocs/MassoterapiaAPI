@@ -41,7 +41,7 @@ namespace Massoterapia.Infra.Data.Mongo.Repositories
                 patientsFromDBQuery = patientsFromDBQuery.Where(patient => patient.Phone.Contains(phone));
 
             if (ScheduledateRange != null && ScheduledateRange.Count == 2 && ScheduledateRange[0] != null && ScheduledateRange[1] != null) 
-                patientsFromDBQuery = patientsFromDBQuery.Where( patient => patient.Schedules.Any(schedule => schedule.StartdDate >= SharedCore.tools.DateTimeTools.SetDateTimeToTimeZoneBR(ScheduledateRange[0]) && schedule.StartdDate <= SharedCore.tools.DateTimeTools.SetDateTimeToTimeZoneBR(ScheduledateRange[1])));
+                patientsFromDBQuery = patientsFromDBQuery.Where( patient => patient.Schedules.Any(schedule => schedule.StartdDate >= SharedCore.tools.DateTimeTools.AjustDateTimeToLinux(ScheduledateRange[0]) && schedule.StartdDate <= SharedCore.tools.DateTimeTools.AjustDateTimeToLinux(ScheduledateRange[1])));
                             
 
             IList<Patient> patientsResult = new List<Patient>(patientsFromDBQuery);
