@@ -1,3 +1,4 @@
+using System.Globalization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -93,6 +94,14 @@ namespace Massoterapia.API.Controllers
         [HttpPost]
         public ActionResult<Boolean> CreatePatient( [FromBody] PatientInputModel patientInputModel )
         {
+            /*
+            var cultureInfo = new CultureInfo("en-US");
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+*/
+            //return BadRequest($"{CultureInfo.CurrentCulture}");
+            
            
             try
             {

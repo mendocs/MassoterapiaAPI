@@ -12,7 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Massoterapia.Infra.IoC.Middlewares;
-
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Massoterapia.API
 {
@@ -48,7 +49,18 @@ namespace Massoterapia.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment() )
+
+
+            var supportedCultures = new[] { new CultureInfo("pt-BR") };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
+
+            if (env.IsDevelopment() )
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
