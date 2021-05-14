@@ -47,6 +47,7 @@ namespace Massoterapia.Application.Patient.Services
 
             IList<PatientViewModelList> PatientsFromDatabase = this.SearchByScheduleDateRange(patientInput).Result;
             
+            throw new ArgumentException(patientInput.ScheduledateRange[0].ToString());
 
             if (PatientsFromDatabase.Count > 0)
             {
