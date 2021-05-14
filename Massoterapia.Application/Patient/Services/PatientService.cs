@@ -53,10 +53,10 @@ namespace Massoterapia.Application.Patient.Services
             if (PatientsFromDatabase.Count > 0)
             {
                 string DateUsed = "";
-                PatientsFromDatabase[0].Schedules.Where(schedule => !(schedule.Canceled || schedule.Executed)).ToList().ForEach( schedule => DateUsed = ScheduleDateUsed(schedule.StartdDate) );
+                PatientsFromDatabase[0].Schedules.Where(schedule => !(schedule.Canceled || schedule.Executed)).ToList().ForEach( schedule => DateUsed += ScheduleDateUsed(schedule.StartdDate) );
 
-                if (!string.IsNullOrEmpty(DateUsed))
-                    return  $"{PatientsFromDatabase[0].Name} em {DateUsed}";
+                //if (!string.IsNullOrEmpty(DateUsed))
+                return  $"{PatientsFromDatabase[0].Name} em {DateUsed}";
             }
 
             string ScheduleDateUsed(DateTime startdDate)
@@ -64,7 +64,7 @@ namespace Massoterapia.Application.Patient.Services
 
                 return 
                 SharedCore.tools.DateTimeTools.ConvertDateToString(
-                SharedCore.tools.DateTimeTools.DateTimeBetween(startdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]));
+                SharedCore.tools.DateTimeTools.DateTimeBetween(SharedCore.tools.DateTimeTools.AjustDateTimeToLinuxFromDB(startdDate), patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]));
             }
 
 
