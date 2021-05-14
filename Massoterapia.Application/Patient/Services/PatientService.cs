@@ -64,7 +64,7 @@ namespace Massoterapia.Application.Patient.Services
 
                 return 
                 SharedCore.tools.DateTimeTools.ConvertDateToString(
-                SharedCore.tools.DateTimeTools.DateTimeBetween(SharedCore.tools.DateTimeTools.AjustDateTimeToLinuxFromDB(startdDate), patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]));
+                SharedCore.tools.DateTimeTools.DateTimeBetween(startdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]));
             }
 
 
