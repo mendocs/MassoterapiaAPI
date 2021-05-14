@@ -45,6 +45,8 @@ namespace Massoterapia.Application.Patient.Services
             patientInput.ScheduledateRange.Add(startDate.AddMinutes(-50).ToUniversalTime());
             patientInput.ScheduledateRange.Add(startDate.AddMinutes(50).ToUniversalTime());
 
+            
+
             IList<PatientViewModelList> PatientsFromDatabase = this.SearchByScheduleDateRange(patientInput).Result;
             
 
