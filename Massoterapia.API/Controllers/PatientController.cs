@@ -95,8 +95,6 @@ namespace Massoterapia.API.Controllers
         public ActionResult<Boolean> CreatePatient( [FromBody] PatientInputModel patientInputModel )
         {         
 
-            return BadRequest($"{patientInputModel.Scheduletime.ToLocalTime()}");
-           
             try
             {
                 IList<PatientViewModelList> result = _patientService.CreatePatient(patientInputModel).Result;
