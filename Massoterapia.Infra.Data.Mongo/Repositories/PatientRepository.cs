@@ -24,18 +24,19 @@ namespace Massoterapia.Infra.Data.Mongo.Repositories
         }
         public Task<IList<Patient>> QueryByNameOrPhone(string name, string phone)
         {
-            var patientsFromDB = _collectionName.AsQueryable<Patient>().Where(w => (w.Name == name || w.Phone == phone));
+            var patientsFromDB = _collectionName.AsQueryable<Patient>().Where(w => (w.Name.ToLower() == name.ToLower() || w.Phone == phone));
             IList<Patient> patientsResult = new List<Patient>(patientsFromDB);
             return Task.FromResult(patientsResult);
         }
 
         public Task<IList<Patient>> QueryLikeNamePhoneScheduledateRange(string name, string phone, IList<DateTime> ScheduledateRange)
         {
+            
 
             var patientsFromDBQuery = _collectionName.AsQueryable<Patient>().Where(patient => true);
 
             if (!string.IsNullOrEmpty(name) )
-                patientsFromDBQuery = patientsFromDBQuery.Where(patient => patient.Name.Contains(name));
+                patientsFromDBQuery = patientsFromDBQuery.Where(patient => patient.Name.ToLower().Contains(name.ToLower()));
 
             if (!string.IsNullOrEmpty(phone) )
                 patientsFromDBQuery = patientsFromDBQuery.Where(patient => patient.Phone.Contains(phone));
