@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using System.Threading.Tasks;
+using MongoDB.Driver;
 using SharedCore.Entities;
 using Massoterapia.Infra.Data.Mongo.Context;
 using Massoterapia.Infra.Data.Mongo.Interfaces;
@@ -22,14 +23,14 @@ namespace Massoterapia.Infra.Data.Mongo.Base
             _collectionName = connectionFactory.GetDatabase(databaseName).GetCollection<T>(collectionName);
         }
 
-        public IQueryable<T> QueryAll()
+        public Task<IQueryable<T>> QueryAll()
         {
-            return _collectionName.AsQueryable<T>();
+            return Task.FromResult(_collectionName.AsQueryable<T>().AsQueryable());
         }
 
-        public T Query(Guid key)
+        public Task<T> Query(Guid key)
         {
-            return _collectionName.AsQueryable<T>().FirstOrDefault(w => w.Key == key);
+            return Task.FromResult(_collectionName.AsQueryable<T>().FirstOrDefault(w => w.Key == key));
         }
 
 

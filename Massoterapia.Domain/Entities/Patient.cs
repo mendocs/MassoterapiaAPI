@@ -54,8 +54,6 @@ namespace Massoterapia.Domain.Entities
 
         
         public Patient(){
-            //this.InitializateScheduleNotifications();
-            //this.InitializeArrays();
         }
 
         public Patient(string name,string phone, DateTime scheduletime)
@@ -93,7 +91,6 @@ namespace Massoterapia.Domain.Entities
 
         public bool SchedulesIsValid(Func<DateTime, string> validatioinDB)
         {
-
             this.InitializateScheduleNotifications();
             
             var schedules = this.Schedules.Select((value, index) => new { value, index });    
@@ -114,20 +111,21 @@ namespace Massoterapia.Domain.Entities
         private IList<String> ScheduleNotifications;
         private void VerifyScheduleValidation(Schedule schedule, int index, Func<DateTime, string> validactInDB)
         {
-            
             if ( !schedule.Executed && !schedule.Canceled)
             {
-                ScheduleValidationContract scheduleValidationContract = new ScheduleValidationContract(schedule);      
+                if (!schedule.isFromDatabase())
+                {
+                    ScheduleValidationContract scheduleValidationContract = new ScheduleValidationContract(schedule);      
+
+                    foreach(Notification notification in scheduleValidationContract.Notifications)
+                        this.AddScheduleNotifications(notification.Message, index);                    
+                }
 
                 var ScheduleDateintervalFound = validactInDB(schedule.StartdDate);
 
                 if (!string.IsNullOrEmpty(ScheduleDateintervalFound) && !ScheduleDateintervalFound.Contains(this.Name))
                     this.AddScheduleNotifications($"Já existe atendimento neste horário para: {ScheduleDateintervalFound}", index);
 
-
-                foreach(Notification notification in scheduleValidationContract.Notifications)
-                    this.AddScheduleNotifications(notification.Message, index);
-                    
             }            
         }
         

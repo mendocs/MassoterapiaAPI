@@ -7,7 +7,6 @@ namespace Massoterapia.Domain.Entities
 {
     public class User : Entity
     {
-
         public string Name { get; private set; } 
         public string Password_Text { get; private set; } 
 
@@ -29,7 +28,6 @@ namespace Massoterapia.Domain.Entities
             this.NumberSalt = numberSalt;
             this.Nhash = nhash;            
             this.SetHashes();
-    
         }
 
         public User(string name, string password_Text , string password_Hash , string  salt, Int32 numberSalt, Int32 interation,Int32 nhash)
@@ -56,7 +54,6 @@ namespace Massoterapia.Domain.Entities
 
         public string getHashPassword()
         {
-            
             string pwdHashed = SecurityHelper.HashPassword(this.Password_Text, this.Salt, this.Interation, this.Nhash);
 
             return pwdHashed;

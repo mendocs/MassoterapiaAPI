@@ -13,10 +13,15 @@ namespace Massoterapia.Infra.IoC.Middlewares
            var myProfileUser = new Massoterapia.Application.user.Mappings.UserDomainToUserTobeCreatedMappingProfile();
            var myProfilePatient = new Massoterapia.Application.Patient.Mappings.PatientDomainToPatientViewModelListMappingProfile();
 
+           var myProfileBlogDomainToViewModel = new Massoterapia.Application.Blog.Mappings.BlogDomainToBlogViewModelMappingProfile();
+           var myProfileBlogInputToDomain = new Massoterapia.Application.Blog.Mappings.BlogInputModelToBlogDomainMappingProfile();
+
 
             List<Profile> profiles  = new List<Profile>();
             profiles.Add(myProfileUser);
             profiles.Add(myProfilePatient);
+            profiles.Add(myProfileBlogDomainToViewModel);
+            profiles.Add(myProfileBlogInputToDomain);
 
 
             var configuration = new MapperConfiguration(cfg => cfg.AddProfiles(profiles) );

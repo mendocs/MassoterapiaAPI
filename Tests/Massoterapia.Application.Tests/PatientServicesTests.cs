@@ -87,7 +87,26 @@ namespace Massoterapia.Application.Tests
             Assert.Equal("11998887777", PatientList[0].Phone );
         }
 
+        [Fact]
+        public void query_patient_corrected()
+        {
+            Guid blogGuid = new Guid("ca3aa909-c935-4c9f-b304-7d744dbe050e");
 
-        
+            Domain.Entities.Patient PatientList = patientService.SearchByKey(blogGuid).Result;
+
+            Assert.Equal("nome teste criar", PatientList.Name );
+        }
+
+        [Fact]
+        public void query_patient_fail()
+        {
+            Guid blogGuid = new Guid();
+
+            Domain.Entities.Patient PatientList = patientService.SearchByKey(blogGuid).Result;
+
+            Assert.Null(PatientList );
+        }        
+
+
     }
 }

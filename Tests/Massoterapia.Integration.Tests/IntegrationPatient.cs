@@ -51,13 +51,17 @@ namespace Massoterapia.Integration.Tests
         [Fact]
         public void Integration_get_patient_corrected()
         {     
+                            
             string key = "4a435118-9e38-4d5f-84cd-deadff6361ae";
+            //string key = "93300e47-b4b5-4fd3-9d86-d34ef4a39ee7";
             
             var response = client.GetAsync($"{request.RequestUri.AbsolutePath}/getkey/{key}").ConfigureAwait(false);
  
             var responseInfo = response.GetAwaiter().GetResult();
 
-            var patient1 = JsonConvert.DeserializeObject<Patient>(responseInfo.Content.ReadAsStringAsync().Result,settings);
+            var resultado = responseInfo.Content.ReadAsStringAsync().Result;
+
+            var patient1 = JsonConvert.DeserializeObject<Patient>(resultado,settings);
 
             Assert.Equal("name create 3" , patient1.Name );
         }
@@ -125,14 +129,16 @@ namespace Massoterapia.Integration.Tests
         {     
             
             var patientInputModelToCreate = new PatientInputModel{
-                Name = "name create 12",
-                Phone = "11998877612",
+                Name = "name create 094",
+                Phone = "11991877994",
                 Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime()
                 };            
 
             var responseInfo = this.CreationResult(patientInputModelToCreate);
 
-            var patientListResult = JsonConvert.DeserializeObject<IList<PatientViewModelList>>(responseInfo.Content.ReadAsStringAsync().Result,settings);
+            var resultado = responseInfo.Content.ReadAsStringAsync().Result;
+
+            var patientListResult = JsonConvert.DeserializeObject<IList<PatientViewModelList>>(resultado,settings);
 
             Assert.Equal(1 , patientListResult.Count );
         }
@@ -168,7 +174,6 @@ namespace Massoterapia.Integration.Tests
 
 
         [Theory]
-        
         [InlineData("","","nome não pode ser vazio", HttpStatusCode.BadRequest)]
         [InlineData("","11998877665","nome não pode ser vazio", HttpStatusCode.BadRequest)]
         [InlineData("nome test","","telefone não pode ser vazio", HttpStatusCode.BadRequest)]
@@ -213,8 +218,9 @@ namespace Massoterapia.Integration.Tests
             patientToBeUpdate.Schedules[2].SetKeyNull();
 
             var responseInfo = this.UpdatenResult(patientToBeUpdate);
+            var resultado = responseInfo.Content.ReadAsStringAsync().Result;
 
-            var patientUpdateResult = JsonConvert.DeserializeObject<long>(responseInfo.Content.ReadAsStringAsync().Result,settings);
+            var patientUpdateResult = JsonConvert.DeserializeObject<long>(resultado,settings);
 
             Assert.Equal(1 , patientUpdateResult );
         }        
@@ -248,7 +254,6 @@ namespace Massoterapia.Integration.Tests
 
 
         [Theory]
-        
         [InlineData("","","nome não pode ser vazio", HttpStatusCode.BadRequest)]
         [InlineData("","11998877665","nome não pode ser vazio", HttpStatusCode.BadRequest)]
         [InlineData("","11999999999","do atendimento não pode ser menor que a data atual", HttpStatusCode.BadRequest)]
@@ -285,8 +290,9 @@ namespace Massoterapia.Integration.Tests
             }                   
             else
             {
-                patientToBeUpdate.Name = name;
-                patientToBeUpdate.Phone = phone;
+                patientToBeUpdate.SetNamePhone(name,phone);
+                // .Name = name;
+                //patientToBeUpdate.Phone = phone;
             }
 
             var responseInfo = this.UpdatenResult(patientToBeUpdate);

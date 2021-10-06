@@ -30,7 +30,6 @@ namespace Massoterapia.Domain.Entities
         {
             if (!this.isFromDatabase())    
             {
-
                 var hours = (this.StartdDate - DateTime.Now).TotalHours;
 
                 if (hours <= 30)

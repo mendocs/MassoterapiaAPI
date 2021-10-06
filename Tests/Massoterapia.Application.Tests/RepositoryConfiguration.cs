@@ -13,6 +13,8 @@ namespace Massoterapia.Application.Tests
         public static string CollectionUser;
         public static string CollectionPatient;
 
+        public static string CollectionBlog;
+
         public static ConnectionFactory ConnFactoryCreated;
         public static ConnectionFactory ConnFactory ()
         {
@@ -32,6 +34,8 @@ namespace Massoterapia.Application.Tests
             CollectionUser = mongoDbSettings.CollectionNameUser;
 
             CollectionPatient = mongoDbSettings.CollectionNamePatient;
+
+            CollectionBlog = mongoDbSettings.CollectionNameBlog;
 
             Massoterapia.Infra.Data.Mongo.Configurations.GlobalConfigurations.ConventionPack_IgnoreExtraElements();
 

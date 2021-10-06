@@ -43,34 +43,25 @@ namespace Massoterapia.Application.Patient.Services
         {
             PatientInputModel patientInput = new PatientInputModel();
             patientInput.ScheduledateRange.Add(startDate.AddMinutes(-50).ToUniversalTime());
-            patientInput.ScheduledateRange.Add(startDate.AddMinutes(50).ToUniversalTime());
-
-            
+            patientInput.ScheduledateRange.Add(startDate.AddMinutes(50).ToUniversalTime()); 
 
             IList<PatientViewModelList> PatientsFromDatabase = this.SearchByScheduleDateRange(patientInput).Result;
-            
 
             if (PatientsFromDatabase.Count > 0)
             {
                 string DateUsed = "";
                 PatientsFromDatabase[0].Schedules.Where(schedule => !(schedule.Canceled || schedule.Executed)).ToList().ForEach( schedule => DateUsed += ScheduleDateUsed(schedule.StartdDate) );
 
-                //if (!string.IsNullOrEmpty(DateUsed))
                 return  $"{PatientsFromDatabase[0].Name} em {DateUsed}";
             }
 
             string ScheduleDateUsed(DateTime startdDate)
             {
-
                 return 
                 SharedCore.tools.DateTimeTools.ConvertDateToString(
                 SharedCore.tools.DateTimeTools.DateTimeBetween(startdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]));
             }
-
-
             return "";
-
-
         }
 
         private IList<PatientViewModelList> patientListCollection(Domain.Entities.Patient patient)
@@ -79,8 +70,6 @@ namespace Massoterapia.Application.Patient.Services
             Patients.Add(patient);
 
             return this.patientListCollection(Patients);
-
-
         }
         private IList<PatientViewModelList> patientListCollection(IList<Domain.Entities.Patient> patients)
         {
@@ -159,7 +148,6 @@ namespace Massoterapia.Application.Patient.Services
 
         private async Task<IList<PatientViewModelList>> SearchByScheduleDateRange(PatientInputModel patientInput)
         {
-            
             IList<Domain.Entities.Patient> PatientsFromDatabase = 
             await this.PatientRepository.QueryLikeNamePhoneScheduledateRange (patientInput.Name, patientInput.Phone , patientInput.ScheduledateRange);
             return this.patientListCollection( PatientsFromDatabase);
@@ -168,7 +156,7 @@ namespace Massoterapia.Application.Patient.Services
 
         public Task<Domain.Entities.Patient> SearchByKey(Guid key)
         {
-            Domain.Entities.Patient PatientFromDatabase =  this.PatientRepository.Query(key);
+            Domain.Entities.Patient PatientFromDatabase =  this.PatientRepository.Query(key).Result;
             return Task.FromResult( PatientFromDatabase);
         }
 

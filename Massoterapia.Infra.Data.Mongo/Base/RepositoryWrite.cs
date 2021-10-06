@@ -32,7 +32,7 @@ namespace Massoterapia.Infra.Data.Mongo.Base
         {
             _collectionName.InsertOne(obj);
 
-            T entity = this.Query(obj.Key); 
+            T entity = this.Query(obj.Key).Result; 
 
             return Task.FromResult(entity);
         }
