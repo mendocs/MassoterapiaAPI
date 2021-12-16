@@ -129,9 +129,10 @@ namespace Massoterapia.Integration.Tests
         {     
             
             var patientInputModelToCreate = new PatientInputModel{
-                Name = "name create 094",
-                Phone = "11991877994",
-                Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime()
+                Name = "name create 097",
+                Phone = "11991877794",
+                Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime(),
+                Duration = 50
                 };            
 
             var responseInfo = this.CreationResult(patientInputModelToCreate);
@@ -186,7 +187,8 @@ namespace Massoterapia.Integration.Tests
             var patientInputModelToCreate = new PatientInputModel{
                 Name = name,
                 Phone = phone,
-                Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime()
+                Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime(),
+                Duration = 50
                 };
 
             if (phone == "11999999999")    // para incluir data vazias
@@ -254,11 +256,14 @@ namespace Massoterapia.Integration.Tests
 
 
         [Theory]
+        /*
         [InlineData("","","nome não pode ser vazio", HttpStatusCode.BadRequest)]
         [InlineData("","11998877665","nome não pode ser vazio", HttpStatusCode.BadRequest)]
         [InlineData("","11999999999","do atendimento não pode ser menor que a data atual", HttpStatusCode.BadRequest)]
         [InlineData("","11888888888","existe atendimento neste", HttpStatusCode.BadRequest)]
+        */
         [InlineData("","11777777777","existe atendimento neste", HttpStatusCode.BadRequest)]
+        [InlineData("","11666666666","existe atendimento neste", HttpStatusCode.BadRequest)]
         public void Integration_update_patient_fail(string name, string phone, string messageError, HttpStatusCode errorMethod)
         {     
             
@@ -268,7 +273,7 @@ namespace Massoterapia.Integration.Tests
 
             if (phone == "11999999999")
             {
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(DateTime.Now.AddDays(-1));
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(DateTime.Now.AddDays(-1),50);
                 newSchedule.SetKeyNull();
                 patientToBeUpdate.Schedules.Add(newSchedule);
 
@@ -276,7 +281,7 @@ namespace Massoterapia.Integration.Tests
             else if (phone == "11888888888")
             {
                 //schedule já existente em outro registro
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc));
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc),50);
                 newSchedule.SetKeyNull();
                 patientToBeUpdate.Schedules.Add(newSchedule);
 
@@ -284,10 +289,15 @@ namespace Massoterapia.Integration.Tests
             else if (phone == "11777777777")
             {
                 //tenta alterar um schedule já existente em horario já utilizado por outro registro
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc));
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,20,18,40,0,DateTimeKind.Utc),50);
                 patientToBeUpdate.Schedules.Add(newSchedule);
-
-            }                   
+            }
+            else if (phone == "11666666666")
+            {
+                //tenta alterar um schedule já existente em horario já utilizado por outro registro
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,20,18,0,0,DateTimeKind.Utc),50);
+                patientToBeUpdate.Schedules.Add(newSchedule);
+            }            
             else
             {
                 patientToBeUpdate.SetNamePhone(name,phone);

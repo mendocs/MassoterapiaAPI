@@ -11,5 +11,8 @@ namespace Massoterapia.Domain.Interfaces
         Task<IList<Patient>> QueryByNameOrPhone(string name, string Phone);
 
         Task<IList<Patient>> QueryLikeNamePhoneScheduledateRange (string name, string phone, IList<DateTime> ScheduledateRange);
+
+        Task<IList<Patient>> QueryScheduledateRangeForScheduleFree(IList<DateTime> ScheduledateRange);
+
     }
 }

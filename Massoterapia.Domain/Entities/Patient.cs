@@ -1,3 +1,4 @@
+using System.Text;
 using System.Linq;
 using System;
 using System.Collections.Generic;
@@ -51,17 +52,16 @@ namespace Massoterapia.Domain.Entities
         public IList<Schedule> Schedules { get; private set; }
 
         public string Comments { get; private set; }
-
         
         public Patient(){
         }
 
-        public Patient(string name,string phone, DateTime scheduletime)
+        public Patient(string name,string phone, DateTime scheduletime, int duration)
         {
             this.Name = name;
             this.Phone = phone;
 
-            Schedule schedule = new Schedule(scheduletime);
+            Schedule schedule = new Schedule(scheduletime, duration);
             this.Schedules = new List<Schedule>();
             this.Schedules.Add(schedule);
             this.InitializateScheduleNotifications();
@@ -89,7 +89,7 @@ namespace Massoterapia.Domain.Entities
 
        }
 
-        public bool SchedulesIsValid(Func<DateTime, string> validatioinDB)
+        public bool SchedulesIsValid(Func<DateTime, int, IEnumerable<(Guid,string)>> validatioinDB)
         {
             this.InitializateScheduleNotifications();
             
@@ -109,7 +109,7 @@ namespace Massoterapia.Domain.Entities
         }
 
         private IList<String> ScheduleNotifications;
-        private void VerifyScheduleValidation(Schedule schedule, int index, Func<DateTime, string> validactInDB)
+        private void VerifyScheduleValidation(Schedule schedule, int index, Func<DateTime, int, IEnumerable<(Guid,string)> > validactInDB)
         {
             if ( !schedule.Executed && !schedule.Canceled)
             {
@@ -121,10 +121,16 @@ namespace Massoterapia.Domain.Entities
                         this.AddScheduleNotifications(notification.Message, index);                    
                 }
 
-                var ScheduleDateintervalFound = validactInDB(schedule.StartdDate);
+                var ScheduleDateintervalFound = validactInDB(schedule.StartdDate, schedule.Duration);
 
-                if (!string.IsNullOrEmpty(ScheduleDateintervalFound) && !ScheduleDateintervalFound.Contains(this.Name))
-                    this.AddScheduleNotifications($"Já existe atendimento neste horário para: {ScheduleDateintervalFound}", index);
+                ScheduleDateintervalFound.ToList()
+                .ForEach(schedulefound => {
+                    if (this.Key != schedulefound.Item1)
+                        this.AddScheduleNotifications($"Já existe atendimento neste horário para: {schedulefound.Item2}", index);
+                    }
+                );
+
+                
 
             }            
         }

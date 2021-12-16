@@ -43,7 +43,6 @@ namespace Massoterapia.API.Controllers
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };            
-
         }
 
 
@@ -51,7 +50,6 @@ namespace Massoterapia.API.Controllers
         [Route("getkey/{key}")]
         public IActionResult  GetPatientByKey( Guid key)
         {
-
             Task tarefa = new Task<Patient>(() => _patientService.SearchByKey(key).Result);
             return ResultSearch(tarefa);
         }
@@ -63,7 +61,6 @@ namespace Massoterapia.API.Controllers
             PatientInputModel patientInputModel = new PatientInputModel();
             patientInputModel.Name = name ?? "";
             patientInputModel.Phone = phone ?? "";
-
             
             if (dateStart is not null)
                 patientInputModel.ScheduledateRange.Add(dateStart.Value);
@@ -82,6 +79,14 @@ namespace Massoterapia.API.Controllers
         {       
             IActionResult actionResult = null;  
 
+/*
+            patientInputModel.Scheduletime = new DateTime( patientInputModel.Scheduledate.Year,
+                                                           patientInputModel.Scheduledate.Month,
+                                                           patientInputModel.Scheduledate.Day,
+                                                           patientInputModel.Scheduletime.Hour,
+                                                           patientInputModel.Scheduletime.Minute,
+                                                           0, DateTimeKind.Utc);     
+*/
             Task tarefa = new Task<IList<PatientViewModelList>>(() => _patientService.CreatePatient(patientInputModel).Result);
 
             string resultado="";

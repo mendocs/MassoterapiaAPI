@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using JsonNet.ContractResolvers;
 using Newtonsoft.Json.Linq;
 using Massoterapia.Domain.Validations;
+using System.Collections.Generic;
 
 namespace Massoterapia.Domain.Tests
 {
@@ -17,7 +18,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_confirmed_when_created()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(1));            
+            var patient = new  Patient("name","phone", DateTime.Now.AddDays(1),50);            
 
             Assert.True(patient.Schedules[0].Confirmed);
 
@@ -26,7 +27,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_not_confirmed_when_created()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(3));            
+            var patient = new  Patient("name","phone", DateTime.Now.AddDays(3),50);            
 
             Assert.False(patient.Schedules[0].Confirmed);
 
@@ -35,7 +36,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_contract_valid()
         {
-            var patient = new  Patient("name","11998886681", DateTime.Now.AddDays(3));            
+            var patient = new  Patient("name","11998886681", DateTime.Now.AddDays(3),50);            
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient);
 
@@ -60,7 +61,7 @@ namespace Massoterapia.Domain.Tests
         [InlineData("119988866800")] //12 caracteres
         public void patient_phone_short_invalid_contract_not_valid(string phone)
         {
-            var patient = new  Patient("usuario", phone,DateTime.Now.AddDays(1));
+            var patient = new  Patient("usuario", phone,DateTime.Now.AddDays(1),50);
                   
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient);
 
@@ -68,9 +69,9 @@ namespace Massoterapia.Domain.Tests
 
         }        
 
-        public string SearchScheduleDateTimeFree(DateTime startDate) 
+        public IEnumerable<(Guid,string)> SearchScheduleDateTimeFree(DateTime startDate, int duration) 
         { 
-            return "";
+            return new List<(Guid,string)>();;
         }
 
 
@@ -78,7 +79,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_whit_schedule_negative_not_can_created()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(-3));   
+            var patient = new  Patient("name","phone", DateTime.Now.AddDays(-3),50);   
 
              
             var retorno = patient.SchedulesIsValid(this.SearchScheduleDateTimeFree);
@@ -94,7 +95,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_whit_schedule_valid()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(3));   
+            var patient = new  Patient("name","phone", DateTime.Now.AddDays(3),50);   
 
              
             var retorno = patient.SchedulesIsValid(this.SearchScheduleDateTimeFree);

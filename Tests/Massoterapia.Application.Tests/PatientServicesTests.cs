@@ -51,7 +51,8 @@ namespace Massoterapia.Application.Tests
             var patienteInputModel = new PatientInputModel();
             patienteInputModel.Name = "name teste 14";
             patienteInputModel.Phone = "11909998888";
-            patienteInputModel.Scheduletime = new DateTime(2021,05,11,10,0,0);
+            patienteInputModel.Duration = 50;
+            patienteInputModel.Scheduletime = new DateTime(2021,09,23,17,0,0);
                        
             var ex = Assert.ThrowsAsync<ArgumentException> (()=> patientService.CreatePatient(patienteInputModel));
 

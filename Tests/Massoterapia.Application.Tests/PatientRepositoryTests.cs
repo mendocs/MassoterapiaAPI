@@ -42,6 +42,49 @@ namespace Massoterapia.Application.Tests
 
 
         [Fact]
+        public void QueryScheduledateRangeForScheduleFree_Start_ocupied()
+        {
+            IList<DateTime> ScheduledateRange = new List<DateTime>();
+
+            ScheduledateRange.Add(new DateTime(2021,05,20,18,40,0,DateTimeKind.Utc));
+            ScheduledateRange.Add(ScheduledateRange[0].AddMinutes(50));
+
+            IList<Massoterapia.Domain.Entities.Patient> result = this.patientRepository.QueryScheduledateRangeForScheduleFree(ScheduledateRange).Result;
+
+            Assert.Equal(14,result.Count);
+        }
+
+        [Fact]
+        public void QueryScheduledateRangeForScheduleFree_end_ocupied()
+        {
+            IList<DateTime> ScheduledateRange = new List<DateTime>();
+
+            ScheduledateRange.Add(new DateTime(2021,05,20,18,0,0,DateTimeKind.Utc));
+            ScheduledateRange.Add(ScheduledateRange[0].AddMinutes(50));
+
+            IList<Massoterapia.Domain.Entities.Patient> result = this.patientRepository.QueryScheduledateRangeForScheduleFree(ScheduledateRange).Result;
+
+            Assert.Equal(14,result.Count);
+        }
+
+
+       [Fact]
+        public void QueryScheduledateRangeForScheduleFree_not_ocupied()
+        {
+            IList<DateTime> ScheduledateRange = new List<DateTime>();
+
+            ScheduledateRange.Add(new DateTime(2021,05,20,17,20,0,DateTimeKind.Utc));
+            ScheduledateRange.Add(ScheduledateRange[0].AddMinutes(50));
+
+            IList<Massoterapia.Domain.Entities.Patient> result = this.patientRepository.QueryScheduledateRangeForScheduleFree(ScheduledateRange).Result;
+
+            Assert.Equal(0,result.Count);
+        }
+
+
+
+
+        [Fact]
         public void RepositoryReal_serch_patient_by_nome_phone_corrected()
         {
             PatientInputModel patientImputModel = configurations.GetUserInputModelCriation();
@@ -97,12 +140,12 @@ namespace Massoterapia.Application.Tests
         public void RepositoryReal_query_patient_only_name_parcial_found()
         {
             PatientInputModel patientImputModel = new PatientInputModel {
-                Name = "nome test"
+                Name = "name create 09"
             };
 
             IList<PatientViewModelList> patientSearched = this.patientService.SearchByLikeNamePhoneScheduleDateRange (patientImputModel).Result;
 
-            Assert.Equal(3,patientSearched.Count);
+            Assert.Equal(4,patientSearched.Count);
         }
 
         [Fact]
@@ -244,6 +287,42 @@ namespace Massoterapia.Application.Tests
 
             Assert.Equal(patientToBeSearched.Key , patientFound.Key);
         }
+
+
+        [Fact]
+        public void update_corrected()
+        {
+
+            PatientTests patientTests = new PatientTests();
+
+            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("eef2220b-160a-4547-b5b5-51746477cbef")).Result;
+
+            patientFound.Schedules[0].SetStartdDate(new System.DateTime(2021,12,10,13,00,0,DateTimeKind.Utc));
+            patientFound.Schedules[0].SetDuration(40);
+        
+
+            var patientUpdated = this.patientService.UpdatePatient(patientFound).Result;
+
+            Assert.Equal(1,patientUpdated);
+        }
+
+
+        [Fact]
+        public void update_name_corrected()
+        {
+
+            PatientTests patientTests = new PatientTests();
+
+            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("435fc83c-0c08-4f9f-8796-dfdfe99aa3cf")).Result;
+
+            patientFound.SetNamePhone(patientFound.Name + " 1", patientFound.Phone);
+        
+
+            var patientUpdated = this.patientService.UpdatePatient(patientFound).Result;
+
+            Assert.Equal(1,patientUpdated);
+        }
+
 
 
 

@@ -16,7 +16,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void schedule_contract_not_valid()
         {
-            var schedule = new  Schedule(DateTime.Now.AddDays(-13));            
+            var schedule = new  Schedule(DateTime.Now.AddDays(-13),50);            
 
             ScheduleValidationContract scheduleValidationContract = new ScheduleValidationContract(schedule);
 
@@ -29,7 +29,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void schedule_contract_valid()
         {
-            var schedule = new  Schedule(DateTime.Now.AddDays(1));            
+            var schedule = new  Schedule(DateTime.Now.AddDays(1),50);            
 
             ScheduleValidationContract scheduleValidationContract = new ScheduleValidationContract(schedule);
 
@@ -40,7 +40,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void schedule_contract_confirmed_30h()
         {
-            var schedule = new  Schedule(DateTime.Now.AddHours(20));            
+            var schedule = new  Schedule(DateTime.Now.AddHours(20),50);            
             
             Assert.True(schedule.Confirmed);
 
@@ -52,7 +52,7 @@ namespace Massoterapia.Domain.Tests
         {
 
             var ddd = TimeZoneInfo.GetSystemTimeZones();
-            var schedule = new  Schedule(DateTime.Now.AddHours(70));            
+            var schedule = new  Schedule(DateTime.Now.AddHours(70),50);            
             
             Assert.False(schedule.Confirmed);
 

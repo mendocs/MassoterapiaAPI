@@ -7,17 +7,36 @@ namespace Massoterapia.Domain.Entities
     public class Schedule: Entity
     {
         public DateTime StartdDate { get; private set; }
+        public DateTime EndDate { get; private set; }
         public string Comments { get; private set; }
         public bool Confirmed { get; private set; }
         public bool Executed { get; private set; }
         public bool Canceled { get; private set; }
+        public int Duration { get; private set; }
 
-
-        public Schedule(DateTime startdDate)
+        public Schedule(DateTime startdDate, int duration)
         {
             this.StartdDate = startdDate;
+            this.Duration = duration;
+            this.SetEndDate();
+            //this.Duration = 50; //duração padrão de atendimento
             this.ConfirmedWhenCreated();
         }
+
+        public void SetEndDate() => this.EndDate = this.StartdDate.AddMinutes(this.Duration);
+
+        public void SetStartdDate(DateTime _startdDate) 
+        {
+            this.StartdDate = _startdDate;
+            this.SetEndDate();
+        }
+
+        public void SetDuration(int _duration) 
+        {
+            this.Duration = _duration;
+            this.SetEndDate();
+        }
+
 
         public override void SetItensConstructor()
         {

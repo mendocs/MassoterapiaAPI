@@ -9,7 +9,8 @@ namespace Massoterapia.Application.Patient.Models
         public string Phone { get; set; }
         public IList<DateTime> ScheduledateRange { get; set; }
         public DateTime Scheduledate  { get; set; }
-        public DateTime Scheduletime { get; set; }        
+        public DateTime Scheduletime { get; set; }
+        public int Duration { get; set; }
 
         public PatientInputModel()
         {

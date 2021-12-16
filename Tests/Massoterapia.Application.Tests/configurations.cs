@@ -81,7 +81,8 @@ namespace Massoterapia.Application.Tests
             Domain.Entities.Patient patientTobeSaved = new Domain.Entities.Patient(
                 patientViewModel.Name,
                 patientViewModel.Phone,
-                patientViewModel.Scheduletime
+                patientViewModel.Scheduletime,
+                50
             );            
 
             mockPatientRepository.Setup(repo => repo.Insert( It.IsAny<Domain.Entities.Patient>() )).ReturnsAsync(patientCreatedFakefromDB) ;

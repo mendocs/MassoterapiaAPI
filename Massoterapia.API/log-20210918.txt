@@ -1,2 +1,0 @@
-2021-09-18 16:59:37.570 -03:00 [Information] Application initialized
-2021-09-18 18:47:09.158 -03:00 [Information] Application initialized
