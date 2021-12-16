@@ -8,6 +8,7 @@ using Massoterapia.Application.Patient.Interfaces;
 using Massoterapia.Application.Patient.Models;
 using Massoterapia.Domain.Interfaces;
 using Massoterapia.Domain.Validations;
+using Massoterapia.Domain.Entities;
 
 namespace Massoterapia.Application.Patient.Services
 {
@@ -39,11 +40,43 @@ namespace Massoterapia.Application.Patient.Services
         }  
 
 
-        private string SearchScheduleDateTimeFree(DateTime startDate)
+    private IEnumerable<(Guid, string)> SearchScheduleDateTimeFree(DateTime startDate,int duration)
+    {
+      IList<(Guid, string)> returnValue = new List<(Guid, string)>();
+      string DateUsed = "";
+      PatientInputModel patientInput = new PatientInputModel();
+      patientInput.ScheduledateRange.Add(startDate.ToUniversalTime());
+      patientInput.ScheduledateRange.Add(startDate.AddMinutes(duration).ToUniversalTime());
+      IList<PatientViewModelList> result = this.SearchByScheduleDateRange(patientInput.ScheduledateRange).Result;
+
+      if (result != null)
+        result.ToList<PatientViewModelList>().ForEach(_patient =>
+        {
+          _patient.Schedules
+          .Where(_schedule =>
+          {
+            if (_schedule.Canceled || _schedule.Executed)
+              return false;
+
+            return SharedCore.tools.DateTimeTools.DateTimeBetween(_schedule.StartdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]) 
+                    || SharedCore.tools.DateTimeTools.DateTimeBetween(_schedule.EndDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]);
+
+          })
+          .ToList().ForEach( _schedule => DateUsed = ScheduleDateUsed(_schedule));
+          returnValue.Add((_patient.Key, _patient.Name + " em " + DateUsed));
+        });
+      return (IEnumerable<(Guid, string)>) returnValue;
+
+      string ScheduleDateUsed(Schedule _Schedule) => SharedCore.tools.DateTimeTools.ConvertDateToString(_Schedule.StartdDate) + " ~ " + SharedCore.tools.DateTimeTools.ConvertDateHourToString(_Schedule.EndDate);
+    }
+
+
+/*
+        private string SearchScheduleDateTimeFree_(DateTime startDate)
         {
             PatientInputModel patientInput = new PatientInputModel();
-            patientInput.ScheduledateRange.Add(startDate.AddMinutes(-50).ToUniversalTime());
-            patientInput.ScheduledateRange.Add(startDate.AddMinutes(50).ToUniversalTime()); 
+            patientInput.ScheduledateRange.Add(startDate.AddMinutes(-30).ToUniversalTime());
+            patientInput.ScheduledateRange.Add(startDate.AddMinutes(30).ToUniversalTime()); 
 
             IList<PatientViewModelList> PatientsFromDatabase = this.SearchByScheduleDateRange(patientInput).Result;
 
@@ -63,7 +96,7 @@ namespace Massoterapia.Application.Patient.Services
             }
             return "";
         }
-
+*/
         private IList<PatientViewModelList> patientListCollection(Domain.Entities.Patient patient)
         {
             IList<Domain.Entities.Patient> Patients = new List<Domain.Entities.Patient>();
@@ -91,7 +124,8 @@ namespace Massoterapia.Application.Patient.Services
             Domain.Entities.Patient patientTobeSaved = new Domain.Entities.Patient(
                 patientInput.Name,
                 patientInput.Phone,
-                patientInput.Scheduletime
+                patientInput.Scheduletime,
+                patientInput.Duration
             );
 
             this.ValidationPatient(patientTobeSaved);
@@ -146,12 +180,20 @@ namespace Massoterapia.Application.Patient.Services
         }
 
 
-        private async Task<IList<PatientViewModelList>> SearchByScheduleDateRange(PatientInputModel patientInput)
+        private async Task<IList<PatientViewModelList>> SearchByScheduleDateRange_(PatientInputModel patientInput)
         {
             IList<Domain.Entities.Patient> PatientsFromDatabase = 
             await this.PatientRepository.QueryLikeNamePhoneScheduledateRange (patientInput.Name, patientInput.Phone , patientInput.ScheduledateRange);
             return this.patientListCollection( PatientsFromDatabase);
         }        
+
+    private async Task<IList<PatientViewModelList>> SearchByScheduleDateRange(IList<DateTime> scheduledateRange)
+    {
+      IList<Massoterapia.Domain.Entities.Patient> PatientsFromDatabase = await this.PatientRepository.QueryScheduledateRangeForScheduleFree(scheduledateRange);
+      IList<PatientViewModelList> patientViewModelListList = this.patientListCollection(PatientsFromDatabase);
+      PatientsFromDatabase = (IList<Massoterapia.Domain.Entities.Patient>) null;
+      return patientViewModelListList;
+    }
 
 
         public Task<Domain.Entities.Patient> SearchByKey(Guid key)
