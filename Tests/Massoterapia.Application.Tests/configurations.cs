@@ -81,8 +81,7 @@ namespace Massoterapia.Application.Tests
             Domain.Entities.Patient patientTobeSaved = new Domain.Entities.Patient(
                 patientViewModel.Name,
                 patientViewModel.Phone,
-                patientViewModel.Scheduletime,
-                50
+                configurations.GetSchedule(patientViewModel.ScheduleData.StartdDate,50)
             );            
 
             mockPatientRepository.Setup(repo => repo.Insert( It.IsAny<Domain.Entities.Patient>() )).ReturnsAsync(patientCreatedFakefromDB) ;
@@ -115,12 +114,16 @@ namespace Massoterapia.Application.Tests
 
             patientInputModel.Name = "nome teste criar";
             patientInputModel.Phone = "11999887776";
-            patientInputModel.Scheduletime = DateTime.Now.AddDays(1);
+            patientInputModel.ScheduleData = new Schedule(DateTime.Now.AddDays(1),false,"",false,50,DateTime.Now.AddDays(1),false,"--Nenhum--","--Nenhum--",0,0);
 
             return patientInputModel;
 
         }
 
+        public static Schedule GetSchedule (DateTime StartDate, int duration)
+        {
+            return new Schedule(StartDate,false,"",false,duration,StartDate,false,"","",0,0);
+        }
 
         public static Domain.Entities.Blog GetBlogDomainFake()
         {

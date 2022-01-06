@@ -56,12 +56,12 @@ namespace Massoterapia.Domain.Entities
         public Patient(){
         }
 
-        public Patient(string name,string phone, DateTime scheduletime, int duration)
+        public Patient(string name,string phone, Schedule schedule)
         {
             this.Name = name;
             this.Phone = phone;
-
-            Schedule schedule = new Schedule(scheduletime, duration);
+            
+            //Schedule schedule = new Schedule(scheduleData.StartdDate, scheduleData.Canceled,scheduleData.Comments,scheduleData.Confirmed, duration, new DateTime(),false,"--Nenhum--","--Nenhum--",0,0);
             this.Schedules = new List<Schedule>();
             this.Schedules.Add(schedule);
             this.InitializateScheduleNotifications();
@@ -89,7 +89,7 @@ namespace Massoterapia.Domain.Entities
 
        }
 
-        public bool SchedulesIsValid(Func<DateTime, int, IEnumerable<(Guid,string)>> validatioinDB)
+        public bool SchedulesIsValid(IList<Schedule> originalSchedules, Func<DateTime, int, IEnumerable<(Guid,string)>> validatioinDB)
         {
             this.InitializateScheduleNotifications();
             
@@ -97,7 +97,7 @@ namespace Massoterapia.Domain.Entities
 
             foreach (var currentSchedule in schedules)
             {
-                this.VerifyScheduleValidation(currentSchedule.value ,currentSchedule.index, validatioinDB); 
+                this.VerifyScheduleValidation(currentSchedule.value ,currentSchedule.index, originalSchedules, validatioinDB); 
             } 
 
             return (this.ScheduleNotifications.Count==0) ;
@@ -109,7 +109,7 @@ namespace Massoterapia.Domain.Entities
         }
 
         private IList<String> ScheduleNotifications;
-        private void VerifyScheduleValidation(Schedule schedule, int index, Func<DateTime, int, IEnumerable<(Guid,string)> > validactInDB)
+        private void VerifyScheduleValidation(Schedule schedule, int index, IList<Schedule> originalSchedules ,Func<DateTime, int, IEnumerable<(Guid,string)> > validactInDB)
         {
             if ( !schedule.Executed && !schedule.Canceled)
             {
@@ -121,17 +121,17 @@ namespace Massoterapia.Domain.Entities
                         this.AddScheduleNotifications(notification.Message, index);                    
                 }
 
-                var ScheduleDateintervalFound = validactInDB(schedule.StartdDate, schedule.Duration);
+                if (schedule.isStartDateDurationModified(originalSchedules))
+                {
+                    var ScheduleDateintervalFound = validactInDB(schedule.StartdDate, schedule.Duration);
 
-                ScheduleDateintervalFound.ToList()
-                .ForEach(schedulefound => {
-                    if (this.Key != schedulefound.Item1)
-                        this.AddScheduleNotifications($"Já existe atendimento neste horário para: {schedulefound.Item2}", index);
-                    }
-                );
-
-                
-
+                    ScheduleDateintervalFound.ToList()
+                    .ForEach(schedulefound => {
+                        if (this.Key != schedulefound.Item1)
+                            this.AddScheduleNotifications($"Já existe atendimento neste horário para: {schedulefound.Item2}", index);
+                        }
+                    );
+                }
             }            
         }
         

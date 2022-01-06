@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Massoterapia.Application.Patient.Interfaces;
 using Massoterapia.Application.Patient.Models;
 using Massoterapia.Application.Patient.Services;
+using Massoterapia.Domain.Entities;
 using Massoterapia.Domain.Interfaces;
 using Massoterapia.Domain.Tests;
 using Massoterapia.Infra.Data.Mongo.Repositories;
@@ -32,8 +33,9 @@ namespace Massoterapia.Application.Tests
         public void RepositoryReal_ceate_patient_corrected()
         {
             PatientInputModel patientImputModel = configurations.GetUserInputModelCriation();
-            patientImputModel.Name = "name create 3";
-            patientImputModel.Phone = "11998007766";
+            patientImputModel.Name = "name 112";
+            patientImputModel.Phone = "11598487760";
+            patientImputModel.ScheduleData = new Schedule(DateTime.Now.AddDays(1),false,"",false,30,DateTime.Now.AddDays(1),false,"escalda pés","Pacote Relaxar 1",100,1);
 
             IList<PatientViewModelList> patientSaved = this.patientService.CreatePatient(patientImputModel).Result;
 
@@ -80,7 +82,6 @@ namespace Massoterapia.Application.Tests
 
             Assert.Equal(0,result.Count);
         }
-
 
 
 
@@ -147,6 +148,18 @@ namespace Massoterapia.Application.Tests
 
             Assert.Equal(4,patientSearched.Count);
         }
+
+        [Fact]
+        public void RepositoryReal_query_all_patient_no_filter()
+        {
+            PatientInputModel patientImputModel = new PatientInputModel {};
+
+            IList<PatientViewModelList> patientSearched = this.patientService.SearchByLikeNamePhoneScheduleDateRange (patientImputModel).Result;
+
+            Assert.NotEqual(0,patientSearched.Count);
+        }
+
+
 
         [Fact]
         public void RepositoryReal_query_patient_only_phone_parcial_found()
@@ -310,20 +323,68 @@ namespace Massoterapia.Application.Tests
         [Fact]
         public void update_name_corrected()
         {
-
             PatientTests patientTests = new PatientTests();
 
-            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("435fc83c-0c08-4f9f-8796-dfdfe99aa3cf")).Result;
+            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("08c9895d-d2ff-4720-8d09-5e98a0fe928f")).Result;
 
-            patientFound.SetNamePhone(patientFound.Name + " 1", patientFound.Phone);
-        
+            patientFound.SetNamePhone("name 110 _", patientFound.Phone);
 
             var patientUpdated = this.patientService.UpdatePatient(patientFound).Result;
 
             Assert.Equal(1,patientUpdated);
         }
 
+        [Fact]
+        public void update_name_already_used()
+        {
+            PatientTests patientTests = new PatientTests();
 
+            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("08c9895d-d2ff-4720-8d09-5e98a0fe928f")).Result;
+
+            patientFound.SetNamePhone("name 109", patientFound.Phone);
+
+            var ex = Assert.Throws<Exception> (()=> this.patientService.UpdatePatient(patientFound).Result);
+
+            Assert.Contains("já existe registro com este nome", ex.Message );
+
+        }
+
+
+        [Fact]
+        public void update_schedule_modified_startDate_ocuppied()
+        {
+
+            PatientTests patientTests = new PatientTests();
+
+            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("08c9895d-d2ff-4720-8d09-5e98a0fe928f")).Result;
+            patientFound.Schedules[0].SetStartdDate(new DateTime(2021,12,25,22,30,00,DateTimeKind.Utc));
+            //patientFound.Schedules[0].SetDuration(51);
+
+            //var patientUpdated = this.patientService.UpdatePatient(patientFound).Result;
+            var ex = Assert.Throws<Exception> (()=> this.patientService.UpdatePatient(patientFound).Result);
+
+            Assert.Contains("existe atendimento neste horário", ex.Message );
+        }
+
+
+        [Fact]
+        public void update_schedule_changed_corrected()
+        {
+
+            PatientTests patientTests = new PatientTests();
+
+            Domain.Entities.Patient patientFound = this.patientService.SearchByKey(new Guid("08c9895d-d2ff-4720-8d09-5e98a0fe928f")).Result;
+
+
+            DateTime startdDate = patientFound.Schedules[0].StartdDate.AddMinutes(5);
+            patientFound.Schedules[0].SetStartdDate(startdDate);
+            //patientFound.Schedules[0].SetDuration(patientFound.Schedules[0].Duration + 1);
+        
+
+            var patientUpdated = this.patientService.UpdatePatient(patientFound).Result;
+
+            Assert.Equal(1,patientUpdated);
+        }        
 
 
     }

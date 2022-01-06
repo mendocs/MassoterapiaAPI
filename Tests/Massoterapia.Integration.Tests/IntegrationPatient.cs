@@ -131,8 +131,7 @@ namespace Massoterapia.Integration.Tests
             var patientInputModelToCreate = new PatientInputModel{
                 Name = "name create 097",
                 Phone = "11991877794",
-                Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime(),
-                Duration = 50
+                ScheduleData = new Schedule(DateTime.Now.AddDays(1).ToUniversalTime(),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0) 
                 };            
 
             var responseInfo = this.CreationResult(patientInputModelToCreate);
@@ -187,19 +186,20 @@ namespace Massoterapia.Integration.Tests
             var patientInputModelToCreate = new PatientInputModel{
                 Name = name,
                 Phone = phone,
-                Scheduletime = DateTime.Now.AddDays(1).ToUniversalTime(),
-                Duration = 50
+                ScheduleData = new Schedule(DateTime.Now.AddDays(1).ToUniversalTime(),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0) 
                 };
 
+            /*
             if (phone == "11999999999")    // para incluir data vazias
                 patientInputModelToCreate.Scheduletime = patientInputModelToCreate.Scheduledate;
+            */
 
             if (phone == "11999998888")    // para incluir data menores que a data atual
-                patientInputModelToCreate.Scheduletime = DateTime.Now.AddDays(-1).ToUniversalTime();
+                patientInputModelToCreate.ScheduleData.SetStartdDate(DateTime.Now.AddDays(-1).ToUniversalTime());
 
 
             if (phone == "11999990000")    // para incluir data já utilizada
-                patientInputModelToCreate.Scheduletime = new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc);
+                patientInputModelToCreate.ScheduleData.SetStartdDate(new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc));
 
             var responseInfo = this.CreationResult(patientInputModelToCreate);
 
@@ -273,7 +273,7 @@ namespace Massoterapia.Integration.Tests
 
             if (phone == "11999999999")
             {
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(DateTime.Now.AddDays(-1),50);
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(DateTime.Now.AddDays(-1),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0);
                 newSchedule.SetKeyNull();
                 patientToBeUpdate.Schedules.Add(newSchedule);
 
@@ -281,7 +281,7 @@ namespace Massoterapia.Integration.Tests
             else if (phone == "11888888888")
             {
                 //schedule já existente em outro registro
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc),50);
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,10,18,30,0,DateTimeKind.Utc),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0);
                 newSchedule.SetKeyNull();
                 patientToBeUpdate.Schedules.Add(newSchedule);
 
@@ -289,13 +289,13 @@ namespace Massoterapia.Integration.Tests
             else if (phone == "11777777777")
             {
                 //tenta alterar um schedule já existente em horario já utilizado por outro registro
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,20,18,40,0,DateTimeKind.Utc),50);
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,20,18,40,0,DateTimeKind.Utc),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0);
                 patientToBeUpdate.Schedules.Add(newSchedule);
             }
             else if (phone == "11666666666")
             {
                 //tenta alterar um schedule já existente em horario já utilizado por outro registro
-                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,20,18,0,0,DateTimeKind.Utc),50);
+                Domain.Entities.Schedule newSchedule = new Domain.Entities.Schedule(new DateTime(2021,5,20,18,0,0,DateTimeKind.Utc),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0);
                 patientToBeUpdate.Schedules.Add(newSchedule);
             }            
             else

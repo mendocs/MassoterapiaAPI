@@ -34,7 +34,7 @@ namespace Massoterapia.Application.Tests
         {
 
             var patienteInputModel = configurations.GetUserInputModelCriation();
-            patienteInputModel.Scheduletime = patienteInputModel.Scheduletime.AddDays(-2);
+            patienteInputModel.ScheduleData.SetStartdDate(patienteInputModel.ScheduleData.StartdDate.AddDays(-2));
 
                        
             var ex = Assert.ThrowsAsync<ArgumentException> (()=> patientService.CreatePatient(patienteInputModel));
@@ -51,8 +51,7 @@ namespace Massoterapia.Application.Tests
             var patienteInputModel = new PatientInputModel();
             patienteInputModel.Name = "name teste 14";
             patienteInputModel.Phone = "11909998888";
-            patienteInputModel.Duration = 50;
-            patienteInputModel.Scheduletime = new DateTime(2021,09,23,17,0,0);
+            patienteInputModel.ScheduleData = new Domain.Entities.Schedule(new DateTime(2021,09,23,17,0,0),false,"",false,50,new DateTime(),false,"--Nenhum--","--Nenhum--",0,0);
                        
             var ex = Assert.ThrowsAsync<ArgumentException> (()=> patientService.CreatePatient(patienteInputModel));
 

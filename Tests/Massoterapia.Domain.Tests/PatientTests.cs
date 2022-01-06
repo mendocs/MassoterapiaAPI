@@ -15,10 +15,16 @@ namespace Massoterapia.Domain.Tests
     public class PatientTests
     {
 
+        public Schedule GetSchedule (DateTime StartDate, int duration)
+        {
+            return new Schedule(StartDate,false,"",false,duration,StartDate,false,"","",0,0);
+        }
+
         [Fact]
         public void patient_confirmed_when_created()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(1),50);            
+            
+            var patient = new  Patient("name","phone", this.GetSchedule(DateTime.Now.AddDays(1),50));            
 
             Assert.True(patient.Schedules[0].Confirmed);
 
@@ -27,7 +33,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_not_confirmed_when_created()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(3),50);            
+            var patient = new  Patient("name","phone", this.GetSchedule(DateTime.Now.AddDays(3),50));            
 
             Assert.False(patient.Schedules[0].Confirmed);
 
@@ -36,7 +42,7 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_contract_valid()
         {
-            var patient = new  Patient("name","11998886681", DateTime.Now.AddDays(3),50);            
+            var patient = new  Patient("name","11998886681", this.GetSchedule(DateTime.Now.AddDays(3),50));            
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient);
 
@@ -61,7 +67,7 @@ namespace Massoterapia.Domain.Tests
         [InlineData("119988866800")] //12 caracteres
         public void patient_phone_short_invalid_contract_not_valid(string phone)
         {
-            var patient = new  Patient("usuario", phone,DateTime.Now.AddDays(1),50);
+            var patient = new  Patient("usuario", phone,this.GetSchedule(DateTime.Now.AddDays(1),50));
                   
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient);
 
@@ -79,10 +85,10 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_whit_schedule_negative_not_can_created()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(-3),50);   
+            var patient = new  Patient("name","phone", this.GetSchedule(DateTime.Now.AddDays(-3),50));   
 
              
-            var retorno = patient.SchedulesIsValid(this.SearchScheduleDateTimeFree);
+            var retorno = patient.SchedulesIsValid(patient.Schedules, this.SearchScheduleDateTimeFree);
             var mensagns =patient.GetScheduleNotifications();
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient);
@@ -95,10 +101,10 @@ namespace Massoterapia.Domain.Tests
         [Fact]
         public void patient_whit_schedule_valid()
         {
-            var patient = new  Patient("name","phone", DateTime.Now.AddDays(3),50);   
+            var patient = new  Patient("name","phone", this.GetSchedule(DateTime.Now.AddDays(3),50));   
 
              
-            var retorno = patient.SchedulesIsValid(this.SearchScheduleDateTimeFree);
+            var retorno = patient.SchedulesIsValid(patient.Schedules, this.SearchScheduleDateTimeFree);
             var mensagns =patient.GetScheduleNotifications();
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient);
@@ -114,7 +120,7 @@ namespace Massoterapia.Domain.Tests
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient1);
 
-            var schedulesIsValid = patient1.SchedulesIsValid(this.SearchScheduleDateTimeFree);
+            var schedulesIsValid = patient1.SchedulesIsValid(patient1.Schedules, this.SearchScheduleDateTimeFree);
 
             var mensagns = patientValidationContract.Notifications.AllInvalidations() + patient1.GetScheduleNotifications();
 
@@ -130,7 +136,7 @@ namespace Massoterapia.Domain.Tests
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient1);
 
-            var schedulesIsValid = patient1.SchedulesIsValid(this.SearchScheduleDateTimeFree);
+            var schedulesIsValid = patient1.SchedulesIsValid(patient1.Schedules, this.SearchScheduleDateTimeFree);
 
             var mensagns = patientValidationContract.Notifications.AllInvalidations() + patient1.GetScheduleNotifications();
 
@@ -146,7 +152,7 @@ namespace Massoterapia.Domain.Tests
 
             PatientValidationContract patientValidationContract = new PatientValidationContract(patient1);
 
-            var schedulesIsValid = patient1.SchedulesIsValid(this.SearchScheduleDateTimeFree);
+            var schedulesIsValid = patient1.SchedulesIsValid(patient1.Schedules, this.SearchScheduleDateTimeFree);
 
             var mensagns = patientValidationContract.Notifications.AllInvalidations() + patient1.GetScheduleNotifications();
 

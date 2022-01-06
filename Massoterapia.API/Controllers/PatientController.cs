@@ -79,14 +79,6 @@ namespace Massoterapia.API.Controllers
         {       
             IActionResult actionResult = null;  
 
-/*
-            patientInputModel.Scheduletime = new DateTime( patientInputModel.Scheduledate.Year,
-                                                           patientInputModel.Scheduledate.Month,
-                                                           patientInputModel.Scheduledate.Day,
-                                                           patientInputModel.Scheduletime.Hour,
-                                                           patientInputModel.Scheduletime.Minute,
-                                                           0, DateTimeKind.Utc);     
-*/
             Task tarefa = new Task<IList<PatientViewModelList>>(() => _patientService.CreatePatient(patientInputModel).Result);
 
             string resultado="";
@@ -96,7 +88,7 @@ namespace Massoterapia.API.Controllers
             {
                 IList<PatientViewModelList> result = JsonConvert.DeserializeObject<IList<PatientViewModelList>>(resultado,settings);
 
-                if ( SharedCore.tools.DateTimeTools.CompareDateTime(result[0].Schedules[0].StartdDate,patientInputModel.Scheduletime))
+                if ( SharedCore.tools.DateTimeTools.CompareDateTime(result[0].Schedules[0].StartdDate,patientInputModel.ScheduleData.StartdDate))
                     return CreatedAtAction("CreatePatient",resultado);
                 else
                     return Ok(resultado);

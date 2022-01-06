@@ -18,18 +18,19 @@ namespace Massoterapia.Application.Patient.Services
         private IPatientRepository PatientRepository; 
         private readonly IMapper _mapper;
 
-
         public PatientService(IMapper mapper, IPatientRepository patientRepository )
         {
             this.PatientRepository = patientRepository;
             this._mapper = mapper;
         }        
 
-        private void ValidationPatient(Domain.Entities.Patient patientTobeSaved )
+        private void ValidationPatient(Domain.Entities.Patient patientTobeSaved, Domain.Entities.Patient? originalPatient)
         {
             PatientValidationContract patientValidationContract = new PatientValidationContract(patientTobeSaved);
 
-            var schedulesIsValid = patientTobeSaved.SchedulesIsValid(this.SearchScheduleDateTimeFree);
+            IList<Schedule> originalSchedules = originalPatient?.Schedules ?? new List<Schedule>();
+
+            var schedulesIsValid = patientTobeSaved.SchedulesIsValid(originalSchedules,this.SearchScheduleDateTimeFree);
 
             if ( !(schedulesIsValid && patientValidationContract.IsValid) )
             {
@@ -39,64 +40,37 @@ namespace Massoterapia.Application.Patient.Services
 
         }  
 
-
-    private IEnumerable<(Guid, string)> SearchScheduleDateTimeFree(DateTime startDate,int duration)
-    {
-      IList<(Guid, string)> returnValue = new List<(Guid, string)>();
-      string DateUsed = "";
-      PatientInputModel patientInput = new PatientInputModel();
-      patientInput.ScheduledateRange.Add(startDate.ToUniversalTime());
-      patientInput.ScheduledateRange.Add(startDate.AddMinutes(duration).ToUniversalTime());
-      IList<PatientViewModelList> result = this.SearchByScheduleDateRange(patientInput.ScheduledateRange).Result;
-
-      if (result != null)
-        result.ToList<PatientViewModelList>().ForEach(_patient =>
+        private IEnumerable<(Guid, string)> SearchScheduleDateTimeFree(DateTime startDate,int duration)
         {
-          _patient.Schedules
-          .Where(_schedule =>
-          {
-            if (_schedule.Canceled || _schedule.Executed)
-              return false;
-
-            return SharedCore.tools.DateTimeTools.DateTimeBetween(_schedule.StartdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]) 
-                    || SharedCore.tools.DateTimeTools.DateTimeBetween(_schedule.EndDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]);
-
-          })
-          .ToList().ForEach( _schedule => DateUsed = ScheduleDateUsed(_schedule));
-          returnValue.Add((_patient.Key, _patient.Name + " em " + DateUsed));
-        });
-      return (IEnumerable<(Guid, string)>) returnValue;
-
-      string ScheduleDateUsed(Schedule _Schedule) => SharedCore.tools.DateTimeTools.ConvertDateToString(_Schedule.StartdDate) + " ~ " + SharedCore.tools.DateTimeTools.ConvertDateHourToString(_Schedule.EndDate);
-    }
-
-
-/*
-        private string SearchScheduleDateTimeFree_(DateTime startDate)
-        {
+            IList<(Guid, string)> returnValue = new List<(Guid, string)>();
+            string DateUsed = "";
             PatientInputModel patientInput = new PatientInputModel();
-            patientInput.ScheduledateRange.Add(startDate.AddMinutes(-30).ToUniversalTime());
-            patientInput.ScheduledateRange.Add(startDate.AddMinutes(30).ToUniversalTime()); 
+            patientInput.ScheduledateRange.Add(startDate.ToUniversalTime());
+            patientInput.ScheduledateRange.Add(startDate.AddMinutes(duration).ToUniversalTime());
+            IList<PatientViewModelList> result = this.SearchByScheduleDateRange(patientInput.ScheduledateRange).Result;
 
-            IList<PatientViewModelList> PatientsFromDatabase = this.SearchByScheduleDateRange(patientInput).Result;
 
-            if (PatientsFromDatabase.Count > 0)
-            {
-                string DateUsed = "";
-                PatientsFromDatabase[0].Schedules.Where(schedule => !(schedule.Canceled || schedule.Executed)).ToList().ForEach( schedule => DateUsed += ScheduleDateUsed(schedule.StartdDate) );
+            if (result != null)
+                result.ToList<PatientViewModelList>().ForEach(_patient =>
+                {
+                _patient.Schedules
+                .Where(_schedule =>
+                {
+                    if (_schedule.Canceled || _schedule.Executed) 
+                        return false;
 
-                return  $"{PatientsFromDatabase[0].Name} em {DateUsed}";
-            }
+                    return SharedCore.tools.DateTimeTools.DateTimeBetween(_schedule.StartdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]) 
+                            || SharedCore.tools.DateTimeTools.DateTimeBetween(_schedule.EndDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]);
 
-            string ScheduleDateUsed(DateTime startdDate)
-            {
-                return 
-                SharedCore.tools.DateTimeTools.ConvertDateToString(
-                SharedCore.tools.DateTimeTools.DateTimeBetween(startdDate, patientInput.ScheduledateRange[0], patientInput.ScheduledateRange[1]));
-            }
-            return "";
+                })
+                .ToList().ForEach( _schedule => DateUsed = ScheduleDateUsed(_schedule));
+                returnValue.Add((_patient.Key, _patient.Name + " em " + DateUsed));
+                });
+            return returnValue;
+
+            string ScheduleDateUsed(Schedule _Schedule) => SharedCore.tools.DateTimeTools.ConvertDateToString(_Schedule.StartdDate) + " ~ " + SharedCore.tools.DateTimeTools.ConvertDateHourToString(_Schedule.EndDate);
         }
-*/
+
         private IList<PatientViewModelList> patientListCollection(Domain.Entities.Patient patient)
         {
             IList<Domain.Entities.Patient> Patients = new List<Domain.Entities.Patient>();
@@ -124,11 +98,10 @@ namespace Massoterapia.Application.Patient.Services
             Domain.Entities.Patient patientTobeSaved = new Domain.Entities.Patient(
                 patientInput.Name,
                 patientInput.Phone,
-                patientInput.Scheduletime,
-                patientInput.Duration
+                patientInput.ScheduleData
             );
 
-            this.ValidationPatient(patientTobeSaved);
+            this.ValidationPatient(patientTobeSaved,null);
 
             IList<PatientViewModelList> patientSeached = this.SearchForCreate(patientInput).Result;
 
@@ -140,8 +113,6 @@ namespace Massoterapia.Application.Patient.Services
 
                 return Task.FromResult( patientListCollection(PatientSaved) );
             }    
-
-            
         }
 
         public async Task<IList<PatientViewModelList>> SearchForCreate(PatientInputModel patientInput)
@@ -155,14 +126,11 @@ namespace Massoterapia.Application.Patient.Services
             if (patientInput.Name?.Length>0)
                 patientInput.Name = patientInput.Name.Trim();
 
-           if (patientInput.Phone?.Length>0)     
+            if (patientInput.Phone?.Length>0)     
                 patientInput.Phone = patientInput.Phone.Trim();
 
             return patientInput;
         }
-
-
-
 
         public async Task<IList<PatientViewModelList>> SearchByLikeNamePhoneScheduleDateRange(PatientInputModel patientInput)
         {
@@ -187,13 +155,13 @@ namespace Massoterapia.Application.Patient.Services
             return this.patientListCollection( PatientsFromDatabase);
         }        
 
-    private async Task<IList<PatientViewModelList>> SearchByScheduleDateRange(IList<DateTime> scheduledateRange)
-    {
-      IList<Massoterapia.Domain.Entities.Patient> PatientsFromDatabase = await this.PatientRepository.QueryScheduledateRangeForScheduleFree(scheduledateRange);
-      IList<PatientViewModelList> patientViewModelListList = this.patientListCollection(PatientsFromDatabase);
-      PatientsFromDatabase = (IList<Massoterapia.Domain.Entities.Patient>) null;
-      return patientViewModelListList;
-    }
+        private async Task<IList<PatientViewModelList>> SearchByScheduleDateRange(IList<DateTime> scheduledateRange)
+        {
+            IList<Massoterapia.Domain.Entities.Patient> PatientsFromDatabase = await this.PatientRepository.QueryScheduledateRangeForScheduleFree(scheduledateRange);
+            IList<PatientViewModelList> patientViewModelListList = this.patientListCollection(PatientsFromDatabase);
+            PatientsFromDatabase = (IList<Massoterapia.Domain.Entities.Patient>) null;
+            return patientViewModelListList;
+        }
 
 
         public Task<Domain.Entities.Patient> SearchByKey(Guid key)
@@ -202,11 +170,39 @@ namespace Massoterapia.Application.Patient.Services
             return Task.FromResult( PatientFromDatabase);
         }
 
+        private string VerifyNamePhoneChanged(Domain.Entities.Patient patientToBeUpdated , Domain.Entities.Patient patientFound)
+        {
+            string result = "";
+            if (patientToBeUpdated.Name != patientFound.Name || patientToBeUpdated.Phone != patientFound.Phone)
+            {
+                PatientInputModel patientTobeSearched = new PatientInputModel(){
+                        Name = patientToBeUpdated.Name,
+                        Phone = patientToBeUpdated.Phone
+                    };
+                    
+                IList<PatientViewModelList> patientSeached = this.SearchForCreate(patientTobeSearched).Result;
+
+                patientSeached.ToList().ForEach(_patientViewModelList => {
+                    if (_patientViewModelList.Key != patientToBeUpdated.Key)
+                        result = $"já existe registro com este nome: {_patientViewModelList.Name} ou com este telefone: {_patientViewModelList.Phone}";
+                    }
+                );
+            }
+            return result;
+        }
+
         public Task<long> UpdatePatient(Domain.Entities.Patient patientToBeUpdated)
         {
+            Domain.Entities.Patient patientFound = this.SearchByKey(patientToBeUpdated.Key).Result;
+
+            string namePhoneChanged = this.VerifyNamePhoneChanged(patientToBeUpdated,patientFound);
+            if (!string.IsNullOrEmpty(namePhoneChanged))
+                throw new System.ArgumentException(namePhoneChanged);
+
             patientToBeUpdated.SetItensConstructor();
-            this.ValidationPatient(patientToBeUpdated);
+            this.ValidationPatient(patientToBeUpdated, patientFound);
             return Task.FromResult(this.PatientRepository.Update(patientToBeUpdated).Result); 
         }
+        
     }
 }
