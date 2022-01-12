@@ -1,0 +1,8 @@
+2022-01-11 01:07:41.346 -03:00 [Information] Application initialized
+2022-01-11 01:24:12.664 -03:00 [Information] Application initialized
+2022-01-11 19:49:50.410 -03:00 [Information] Application initialized
+2022-01-11 19:52:06.930 -03:00 [Information] Application initialized
+2022-01-11 19:53:42.702 -03:00 [Information] Application initialized
+2022-01-11 20:01:16.778 -03:00 [Information] Application initialized
+2022-01-11 20:02:25.108 -03:00 [Information] Application initialized
+2022-01-11 20:44:30.704 -03:00 [Information] Application initialized

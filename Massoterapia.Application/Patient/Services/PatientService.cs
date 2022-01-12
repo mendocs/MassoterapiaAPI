@@ -117,7 +117,7 @@ namespace Massoterapia.Application.Patient.Services
 
         public async Task<IList<PatientViewModelList>> SearchForCreate(PatientInputModel patientInput)
         {
-            IList<Domain.Entities.Patient> PatientsFromDatabase =  await this.PatientRepository.QueryByNameOrPhone(patientInput.Name, patientInput.Phone);
+            IList<Domain.Entities.Patient> PatientsFromDatabase =  await this.PatientRepository.QueryByName(patientInput.Name);
             return this.patientListCollection( PatientsFromDatabase);
         }
 

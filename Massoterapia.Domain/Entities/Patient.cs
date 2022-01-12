@@ -27,8 +27,8 @@ namespace Massoterapia.Domain.Entities
         public string LiquidTypes { get; private set; }
         public string Smoking { get; private set; }
         public string Alcohol { get; private set; }
-        public string Psychoactive { get; private set; }
-        public string Addiction { get; private set; }
+        //public string Psychoactive { get; private set; }
+        //public string Addiction { get; private set; }
         public string PhysicalActivity { get; private set; }
         public string PhysicalActivityFrequency { get; private set; }
         public string QualitySleep { get; private set; }
@@ -36,18 +36,19 @@ namespace Massoterapia.Domain.Entities
         public string Feces { get; private set; }
         public string LastFeces { get; private set; }
         public string LeisureActivities { get; private set; }
-        public string LeisureRestWork { get; private set; }
+        //public string LeisureRestWork { get; private set; }
         public List<string> Disease { get; private set; }
         public List<string> HealthChanges { get; private set; }
         public List<string> Treatments { get; private set; }
         public string OthersTreatments { get; private set; }
         public string Medicines { get; private set; }
         public bool Diu { get; private set; }
+        public bool Prosthesis { get; private set; }
         public string Dum { get; private set; }
         public bool Subcutaneous { get; private set; }
-        public string SubcutaneousOther { get; private set; }
+        //public string SubcutaneousOther { get; private set; }
         public string Surgeries { get; private set; }
-        public string FamilyIllnessess { get; private set; }
+        //public string FamilyIllnessess { get; private set; }
         
         public IList<Schedule> Schedules { get; private set; }
 

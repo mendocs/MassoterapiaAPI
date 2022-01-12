@@ -32,6 +32,13 @@ namespace Massoterapia.Infra.Data.Mongo.Repositories
             return ResultPatientsFromDbQuery(patientsFromDB);
         }
 
+
+        public Task<IList<Patient>> QueryByName(string name)
+        {
+            var patientsFromDB = _collectionName.AsQueryable<Patient>().Where(w => w.Name.ToLower() == name.ToLower());
+            
+            return ResultPatientsFromDbQuery(patientsFromDB);
+        }
         
         public Task<IList<Patient>> QueryLikeNamePhoneScheduledateRange(string name, string phone, IList<DateTime> ScheduledateRange)
         {
