@@ -1,9 +1,0 @@
-2021-12-28 10:58:21.338 -03:00 [Information] Application initialized
-2021-12-28 11:07:16.463 -03:00 [Information] Application initialized
-2021-12-28 11:21:32.918 -03:00 [Information] Application initialized
-2021-12-28 11:23:44.856 -03:00 [Information] Application initialized
-2021-12-28 11:24:57.502 -03:00 [Information] Application initialized
-2021-12-28 11:27:00.273 -03:00 [Information] Application initialized
-2021-12-28 11:29:20.118 -03:00 [Information] Application initialized
-2021-12-28 19:13:01.980 -03:00 [Information] Application initialized
-2021-12-28 21:11:54.218 -03:00 [Information] Application initialized

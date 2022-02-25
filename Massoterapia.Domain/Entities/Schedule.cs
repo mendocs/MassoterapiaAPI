@@ -21,6 +21,7 @@ namespace Massoterapia.Domain.Entities
 
 
         public Schedule(
+            Guid key,
             DateTime startdDate,
             bool canceled,
             string comments,
@@ -34,6 +35,7 @@ namespace Massoterapia.Domain.Entities
             int packageSession
 
         ){
+            this.SetKey(key);
             this.StartdDate = startdDate;
             this.EndDate = endDate;
             this.Comments = comments;

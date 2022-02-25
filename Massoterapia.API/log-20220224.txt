@@ -1,0 +1,3 @@
+2022-02-24 00:46:21.229 -03:00 [Information] Application initialized
+2022-02-24 01:28:34.943 -03:00 [Information] Application initialized
+2022-02-24 18:39:59.488 -03:00 [Information] Application initialized
