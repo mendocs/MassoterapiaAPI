@@ -1,7 +1,7 @@
 bin
 obj
 Properties
-.vscode
+
 appsettings.Development.json
 [log-]
 
@@ -274,3 +274,6 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+Massoterapia.API/log-20220424.txt
+Massoterapia.API/log-20221006.txt
+Massoterapia.API/log-20221227.txt

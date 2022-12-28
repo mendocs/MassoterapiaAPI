@@ -17,6 +17,7 @@ namespace Massoterapia.Domain.Entities
         public int Sons { get; private set; }
         public DateTime DateBorn { get; private set; }
         public string Weight { get; private set; }
+        public string Height { get; private set; }
         public string PhoneContact { get; private set; }
         public string Occupation { get; private set; }
         public List<string> Motivation { get; private set; }
@@ -37,6 +38,7 @@ namespace Massoterapia.Domain.Entities
         public string LastFeces { get; private set; }
         public string LeisureActivities { get; private set; }
         //public string LeisureRestWork { get; private set; }
+        public string DisturbMenstruation { get; private set; }
         public List<string> Disease { get; private set; }
         public List<string> HealthChanges { get; private set; }
         public List<string> Treatments { get; private set; }
@@ -44,6 +46,7 @@ namespace Massoterapia.Domain.Entities
         public string Medicines { get; private set; }
         public bool Diu { get; private set; }
         public bool Prosthesis { get; private set; }
+        public bool Locomotion { get; private set; }
         public string Dum { get; private set; }
         public bool Subcutaneous { get; private set; }
         //public string SubcutaneousOther { get; private set; }
